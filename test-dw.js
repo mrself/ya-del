@@ -1,4 +1,5 @@
 var w;
+
 describe('Init', function() {
 	var w = new $.DW($('.widget'), 'widget');
 

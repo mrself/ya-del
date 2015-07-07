@@ -135,4 +135,7 @@
 
 	h.g.makeClass(DW, Prototype);
 	$.DW = DW;
+	// $.DW = function(constructor) {
+	// 	$.extend({}, $.DW.prototype, Plugin.prototype);
+	// };
 })(jQuery);
