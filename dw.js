@@ -1,3 +1,6 @@
+/**
+ * v 1.0.0
+ */
 (function($) {
 
 	function DW (el, name, selectorName) {
@@ -13,7 +16,7 @@
 
 
 	function Prototype() {
-		var self,
+		var count = 0,
 
 		_defineEl = function(el) {
 			if ( el instanceof $) {
@@ -23,16 +26,30 @@
 				this.$el = $(el);
 				this.el = el;
 			}
-		};
+		},
+
+		subElClass;
 
 
 		return {
+			initDW: function(el, selectorName) {
+
+				this.el = null;
+				this.$el = null;
+				this.els = {};
+				this.$ = {};
+				this.selectorName = selectorName || this._name;
+				this.uid = 0;
+				// l(++count);
+				this.__constuct(el);
+			},
 			__constuct: function(el) {
-				self = this;
-				_defineEl.call(self, el);
-				self._ = new $.DEl();
-				self._.__init(self);
-				self.subEl.Class = h.g.makeClass(this.subEl.Constructor, this.subEl.Prototype);
+				_defineEl.call(this, el);
+				this._ = new Function();
+				this._ = $.DEl(this._);
+				// l(this._);
+				this._.__init(this);
+				subElClass = h.g.makeClass(this.subEl.Constructor, this.subEl.Prototype);
 			},
 
 			subEl: {
@@ -42,7 +59,7 @@
 				 * @param {jQuery|null} $el - jQuery el of subEl; default - find in DW $el by name
 				 * @param {function} constructor - subEl constructor; has context is subEl; see property constructor
 				 */
-				Constructor: function(name, $el, constructor, inheritName) {
+				Constructor: function(name, $el, constructor, inheritName, self) {
 					/**
 					 * 
 					 * @property {DM} DW - Link to DW instance
@@ -109,7 +126,8 @@
 					 */
 					this.__constuct = function() {
 						subEl = this;
-						this._ = new $.DEl();
+						this._ = new Function();
+						this._ = $.DEl(this._);
 						this._.__init(this, {nameJQuery: '$', nameDom: 'el'});
 						this.constructor();
 					};
@@ -121,20 +139,30 @@
 			},
 
 			addEl: function(name, $el, constructor, inheritName) {
-				var el = new self.subEl.Class(name, $el, constructor, inheritName);
-				self.$[name] = el.$;
-				self.els[name] = el;
+				var el = new subElClass(name, $el, constructor, inheritName, this);
+				this.$[name] = el.$;
+				this.els[name] = el;
 			},
 
 
 			makeUid: function(name) {
 				return this._name + '-' + uid + '-' + name;
+			},
+
+			addComponent: function(name, constructor) {
+				constructor.prototype.self = this;
+				this[name] = new constructor(self);
 			}
 		};
 	}
 
-	h.g.makeClass(DW, Prototype);
-	$.DW = DW;
+	// h.g.makeClass(DW, Prototype);
+	// $.DW = DW;
+	var prototype = new Prototype();
+	$.DW = function(Plugin) {
+		$.extend(Plugin.prototype, prototype);
+		
+	};
 	// $.DW = function(constructor) {
 	// 	$.extend({}, $.DW.prototype, Plugin.prototype);
 	// };

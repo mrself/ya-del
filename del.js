@@ -1,4 +1,6 @@
-
+/**
+ * v 1.0.0
+ */
 (function($) {
 
 	/**
@@ -31,7 +33,8 @@
 		 * @private
 		 * @property {DEl} self DEl instance
 		 */
-		var self;
+		var self,
+		counter = 0;
 
 		return {
 
@@ -48,7 +51,7 @@
 					modDevider: '--'
 				};
 				$.extend(options, params);
-				
+				// l(this);
 				this.parent = DW;
 				this.el = DW[options.nameDom];
 				this.$el = DW[options.nameJQuery];
@@ -58,8 +61,15 @@
 				};
 
 				this.name = DW.selectorName || DW._name;
-
+				// this.count();
 				self = this;
+			},
+			test: function() {
+				l(this);
+			},
+			counter: 0,
+			count: function() {
+				l(counter++);
 			},
 
 			/**
@@ -186,6 +196,7 @@
 					 * @return {jQuery}
 					 */
 					add: function(modName) {
+						// l(self);
 						return self.$el.addClass(make(modName));
 					}
 				};
@@ -221,7 +232,13 @@
 	}
 
 	h.g.makeClass(DEl, Prototype);
-	$.DEl = DEl;
+
+	// $.DEl = DEl;
+	$.DEl = function(DELvar) {
+		var F = Prototype;
+		DELvar.prototype = new Prototype();
+		return new DELvar();
+	};
 
 
 })(jQuery);
