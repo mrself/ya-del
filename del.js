@@ -235,6 +235,7 @@
 
 	// $.DEl = DEl;
 	$.DEl = function(DELvar) {
+		DELvar = DELvar || function(){};
 		var F = Prototype;
 		DELvar.prototype = new Prototype();
 		return new DELvar();

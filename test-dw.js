@@ -40,8 +40,6 @@ describe('Init', function() {
 	// $.extend(Plugin.prototype, new Prototype());
 	$.DW(Plugin1);
 	var w1 = new Plugin1();
-	l(w1);
-	l(w);
 
 	describe('Sub el', function() {
 		
@@ -77,6 +75,19 @@ describe('Init', function() {
 			});
 			it('sub el 2 level if item is "subitem"', function() {
 				assert(w.els.item._.find('subitem').length);
+			});
+		});
+		describe('Add el with custom jQuery el', function() {
+			w.addEl('custom', null, function() {
+				this.$ = $('<div />', {
+					class: 'customEl'
+				});
+				this.initDW();
+			});
+			// l(w.$.custom);
+			l(w.els.custom);
+			it('Class name of subel "custom" = "customEl"', function() {
+				assert(w.$.custom.hasClass('customEl'));
 			});
 		});
 	});

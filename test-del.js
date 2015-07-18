@@ -38,6 +38,7 @@ describe("DEl", function() {
 			it('Make name if both elName & modName are arrays with length more than 1', function() {
 				assert(inst.makeName(['elName', 'elName1'], ['modName', 'modName1']) == (ELName + '__elName__elName1--modName--modName1'));
 			});
+			// it('Make name by ')
 		});
 
 		describe('Selector name', function() {

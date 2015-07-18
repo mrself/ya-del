@@ -90,13 +90,23 @@
 					 * @property {jQuery} $ - jQuery el of subEl
 					 * @public
 					 */
-					this.$ = $el || self._.find(this.selectorName);
+					this.$ = null;
 
 					/**
 					 * @property {DOM} $ - DOM el of subEl
 					 * @public
 					 */
-					this.el = this.$.get();
+					this.el = null;
+
+					var isCustomEl = false;
+					if ($el === null) {
+						this.$ = $el;
+						isCustomEl = true;
+					} else {
+						this.$ = $el || self._.find(this.selectorName);
+						this.el = this.$.get();
+					}
+					
 
 					/**
 					 * @property {function} constructor - arguments constructor; has context of its; containt all logic about subEl
@@ -109,8 +119,14 @@
 					 */
 					this._ = null;
 
-					this.__constuct();
+					this.__constuct(isCustomEl);
+					
 				},
+
+				/**
+				 * TODO:
+				 * add reinit method (find el and new del inst)
+				 */
 				Prototype: function() {
 					/**
 					 * @property {subEl} subEl - link to itself subEl
@@ -124,12 +140,26 @@
 					 * @method
 					 * @public
 					 */
-					this.__constuct = function() {
+					this.__constuct = function(isCustomEl) {
 						subEl = this;
+						if (isCustomEl) {
+							this.constructor.prototype.initDW = this.initDW;
+						} else {
+							this.initDW();
+						}
+						
+						this.constructor();
+						if (this.constructor.methods) {
+							$.each(this.constructor.methods, function(index, val) {
+								this.constructor[index] = new val();
+							});
+						}
+					};
+
+					this.initDW = function() {
 						this._ = new Function();
 						this._ = $.DEl(this._);
 						this._.__init(this, {nameJQuery: '$', nameDom: 'el'});
-						this.constructor();
 					};
 
 					this.baseName = function() {
