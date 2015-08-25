@@ -10,11 +10,10 @@ describe("DEl", function() {
 	describe('Init', function() {
 		var tempEL = {
 			$el: $('.plugin'),
-			el: $('.plugin')[0],
 			_name: 'plugin'
 		};
-		inst = new $.DEl();
-		inst.__init(tempEL);
+		inst = $.DEl();
+		inst.initDEL(tempEL);
 		it('make name by EL property "_name" if no selectorName', function() {
 			assert(inst.name == 'plugin');
 		});
@@ -38,7 +37,6 @@ describe("DEl", function() {
 			it('Make name if both elName & modName are arrays with length more than 1', function() {
 				assert(inst.makeName(['elName', 'elName1'], ['modName', 'modName1']) == (ELName + '__elName__elName1--modName--modName1'));
 			});
-			// it('Make name by ')
 		});
 
 		describe('Selector name', function() {
@@ -69,59 +67,69 @@ describe("DEl", function() {
 
 		describe('mod', function() {
 			it('El has no mod "MOD"', function() {
-				assert(!inst.mod.has('MOD'));
+				assert(!inst.hasMod('MOD'));
 			});
 			it('El has mod "modName"', function() {
-				assert(inst.mod.has('modName'));
+				assert(inst.hasMod('modName'));
 			});
 
 			it('remove existing mod name "modNameRemove"', function() {
-				inst.mod.remove('modNameRemove');
-				assert(!inst.mod.has('modNameRemove'));
+				inst.removeMod('modNameRemove');
+				assert(!inst.hasMod('modNameRemove'));
 			});
 
 			it('remove non existing mod name "mmmm"', function() {
-				inst.mod.remove('mmmm');
-				assert(!inst.mod.has('mmmm'));
+				inst.removeMod('mmmm');
+				assert(!inst.hasMod('mmmm'));
 			});
 
 			it('remove mod name return jQuery object', function() {
-				assert(inst.mod.remove('ff') instanceof $);
+				assert(inst.removeMod('ff') instanceof $);
 			});
 
 			it('add non existing mod name "ModName1"', function() {
-				inst.mod.add('ModName1');
-				assert(inst.mod.has('ModName1'));
+				inst.addMod('ModName1');
+				assert(inst.hasMod('ModName1'));
 			});
 			it('add existing mod name "ModName1"', function() {
-				inst.mod.add('ModName1');
-				assert(inst.mod.has('ModName1'));
+				inst.addMod('ModName1');
+				assert(inst.hasMod('ModName1'));
+			});
+			describe('toggle mod', function() {
+				it('add non-existing mod "toggleMod"', function() {
+					inst.toggleMod('toggleMod');
+					assert(inst.hasMod('toggleMod'));
+				});
+				it('remove existing mod "toggleMod"', function() {
+					inst.toggleMod('toggleMod');
+					assert(!inst.hasMod('toggleMod'));
+				});
 			});
 		});
 
 		describe('event', function() {
 			var clicked;
 			it('event name from click is click.plugin', function() {
-				assert(inst.event.makeName('click') == 'click.plugin');
+				assert(inst.eventMakeName('click') == 'click.plugin');
 			});
 			it('add event click', function() {
 				clicked = false;
-				inst.event.on('click', function() {
+				inst.on('click', function() {
 					clicked = true;
 				});
-				inst.event.trigger('click');
+				inst.triggerEvent('click');
 				assert(clicked);
 			});
 			it('add event click with sub el', function() {
 				clicked = false;
-				inst.event.on('clickSub', inst.makeSelector('el'), function() {
+				inst.on('clickSub', inst.makeSelector('el'), function() {
 					clicked = true;
 				});
 				inst.find('el').trigger('clickSub');
 				assert(clicked);
 			});
 			it('remove event', function() {
-				inst.event.off('clickSub');
+				inst.off('clickSub');
 				clicked = false;
 				inst.find('el').trigger('clickSub');
 				assert(!clicked);

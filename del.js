@@ -9,33 +9,25 @@
 	 * 		 el - DOM el,
 	 * 		 _name - name of the element or selectorName - an alternative for _name
 	 * 		 
-	 * @constructor
-	 * @param {DW} DW Instance
-	 * @param {object} params - Options
-  		@param {string} params.nameDom - DW property name of DOM el; default - 'el;
-  		@param {string} params.nameJQuery - DW property name of jQuery el; default - '$el'
-		@param {string} params.elSeparator Separator between elements, used when making selector; default - '__'
-		@param {string} params.modSeparator Separator between element and modificator, used when making selector; default - '--'
-
-	 * @example
-	 * var el = new DEl(DW);
-	 */
-	function DEl(DW, params) {
-
-	}
+	*/
+	
+	var l = h.g.l;
 
 	/**
 	 * Prototype constructor for DEl
 	 * @scope DW
 	 */
 	function Prototype() {
-		/**
-		 * @private
-		 * @property {DEl} self DEl instance
-		 */
-		var self,
-		counter = 0;
-
+		var _defineEl = function(el) {
+			if ( el instanceof $) {
+				this.$el = el;
+				this.el = el.get();
+			} else {
+				this.$el = $(el);
+				this.el = el;
+			}
+		};
+		
 		return {
 
 			/**
@@ -43,33 +35,22 @@
 			 * @public
 			 * @return {undefined}
 			 */
-			__init: function(DW, params) {
+			initDEL: function(DW, params) {
 				var options = {
-					nameDom: 'el',
 					nameJQuery: '$el',
 					elDevider: '__',
 					modDevider: '--'
 				};
 				$.extend(options, params);
-				// l(this);
 				this.parent = DW;
-				this.el = DW[options.nameDom];
 				this.$el = DW[options.nameJQuery];
+				this.el = this.$el.get();
 				this.DEVIDER = {
 					DW: options.elDevider,
 					MOD: options.modDevider
 				};
 
 				this.name = DW.selectorName || DW._name;
-				// this.count();
-				self = this;
-			},
-			test: function() {
-				l(this);
-			},
-			counter: 0,
-			count: function() {
-				l(counter++);
 			},
 
 			/**
@@ -145,99 +126,88 @@
 			},
 
 			/**
-			 * Actions with modifier
-			 * 
-			 * @submodule mod
+			 * Make class name or selector from mod name. Shortcut for self.makeName or makeSelector
+			 * @param  {string} modName  Modifier name
+			 * @param  {boolean} selector If true - make selector, else - make class name; default - false
+			 * @return {string}
 			 */
-			mod: h.g.makeInstance(function() {
-				/**
-				 * Link to itself (mod)
-				 *
-				 * @private
-				 * @type {object mod}
-				 */
-				var mod = this,
+			makeMod: function(modName, selector) {
 
-				/**
-				 * Make class name or selector from mod name. Shortcut for self.makeName or makeSelector
-				 * @param  {string} modName  Modifier name
-				 * @param  {boolean} selector If true - make selector, else - make class name; default - false
-				 * @return {string}
-				 */
-				make = function(modName, selector) {
-					if (!selector) {
-						return self.makeName('', modName);
-					}
-					return self.makeSelector('', modName);
-				};
+				if (!selector) {
+					return this.makeName('', modName);
+				}
+				return this.makeSelector('', modName);
+			},
 
-				return {
-					/**
-					 * If the el has modifier "modName"
-					 * @param  {string}  modName Modifier name to check
-					 * @return {Boolean}
-					 */
-					has: function(modName) {
-						return self.$el.hasClass(make(modName));
-					},
+			/**
+			 * If the el has modifier "modName"
+			 * @param  {string}  modName Modifier name to check
+			 * @return {Boolean}
+			 */
+			hasMod: function(modName) {
+				return this.$el.hasClass(this.makeMod(modName));
+			},
 
-					/**
-					 * Remove modifier from el
-					 * @param  {string} modName Modifier name to remove
-					 * @return {jQuery}
-					 */
-					remove: function(modName) {
-						return self.$el.removeClass(make(modName));
-					},
+			/**
+			 * Remove modifier from el
+			 * @param  {string} modName Modifier name to remove
+			 * @return {jQuery}
+			 */
+			removeMod: function(modName) {
+				return this.$el.removeClass(this.makeMod(modName));
+			},
 
-					/**
-					 * Add modifier to all
-					 * @param {string} modName Modiifier name to add
-					 * @return {jQuery}
-					 */
-					add: function(modName) {
-						// l(self);
-						return self.$el.addClass(make(modName));
-					}
-				};
-			}),
+			/**
+			 * Add modifier to all
+			 * @param {string} modName Modiifier name to add
+			 * @return {jQuery}
+			 */
+			addMod: function(modName) {
+				return this.$el.addClass(this.makeMod(modName));
+			},
 
-			event: h.g.makeInstance(function() {
-				this.makeName = function(name) {
-					var result = '';
-					name = name.split(' ');
-					$.each(name, function(index, val) {
-						result += name + '.' + self.name;
-					});
-					return result;
-				};
+			/**
+			 * Toggle modifier
+			 * @param {string} modName Modiifier name to toggle
+			 * @return {jQuery} el
+			 */
+			toggleMod: function(modName) {
+				return this.$el.toggleClass(this.makeMod(modName));
+			},
 
-				this.on = function(name, fn, params) {
-					var args = arguments;
-					args[0] = this.makeName(args[0]);
-					$.fn.on.apply(self.$el, args);
-				};
 
-				this.off = function(name) {
-					self.$el.off(this.makeName(name));
-				};
+			eventMakeName: function(name) {
+				var result = '',
+					self = this;
+				name = name.split(' ');
+				$.each(name, function(index, val) {
+					result += name + '.' + self.name;
+				});
+				return result;
+			},
 
-				this.trigger = function(name) {
-					var args = arguments;
-					args[0] = this.makeName(args[0]);
-					$.fn.trigger.apply(self.$el, args);
-				};
-			})
+			on: function(name, fn, params) {
+				var args = arguments;
+				args[0] = this.eventMakeName(args[0]);
+				$.fn.on.apply(this.$el, args);
+			},
+
+			off: function(name) {
+				this.$el.off(this.eventMakeName(name));
+			},
+
+			triggerEvent: function(name) {
+				var args = arguments;
+				args[0] = this.eventMakeName(args[0]);
+				$.fn.trigger.apply(this.$el, args);
+			}
 		};
 	}
 
-	h.g.makeClass(DEl, Prototype);
-
-	// $.DEl = DEl;
+	var prototype = new Prototype();
 	$.DEl = function(DELvar) {
 		DELvar = DELvar || function(){};
-		var F = Prototype;
-		DELvar.prototype = new Prototype();
+		$.extend(DELvar.prototype, prototype);
 		return new DELvar();
 	};
 
