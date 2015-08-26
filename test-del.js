@@ -1,139 +1,206 @@
-var plugin;
-/**
- * Core functionality for DOM elements.
- * Used when developing plugin, or simply adding methods to element.
- * @param  {[type]} ) {	}         [description]
- * @return {[type]}   [description]
- */
-describe("DEl", function() {
-	var inst;
-	describe('Init', function() {
-		var tempEL = {
-			$el: $('.plugin'),
-			_name: 'plugin'
-		};
-		inst = $.DEl();
-		inst.initDEL(tempEL);
-		it('make name by EL property "_name" if no selectorName', function() {
-			assert(inst.name == 'plugin');
-		});
+var l = h.g.l;
+var zen = function(input) {
+  return jQuery(zen_coding.expandAbbreviation(input, 'html', 'xhtml'));
+};
+function makeModule(name, $el) {
+	var Module = function(){
+		this.dName = name;
+		if (!$el) {
+			this.$el = $('.' + this.dName).appendTo('body');
+		}
+		else
+			this.$el = $el;
+		this.initDel();
+	};
+	Module.prototype = $.Del;
+	var module = new Module();
+	return module;
+}
+
+function makeEl(className) {
+  var $el = $('<div />', {
+    class: className
+  });
+  return $el;
+}
+
+
+function makeDomTree(tree, $el) {
+	if (!$el) {
+		$el = makeEl(tree.name);
+	} else {
+		$el.html(makeEl(tree.name));
+	}
+
+	if (tree.children)
+		$el.html(makeDomTree(tree.children));
+	return $el;
+}
+
+
+describe('makeName method', function() {
+	it('makeName(el) = module__el', function() {
+		var module = makeModule('module');
+		assert(module.makeName('el') == 'module__el');
+	});
+	it('makeName(el, mod) = module__el--mod', function() {
+		var module = makeModule('module');
+		assert(module.makeName('el', 'mod') == 'module__el--mod');
+	});
+});
+
+describe('makeSelector method', function() {
+	it('makeSelector(el) = .module__el', function() {
+		var module = makeModule('module');
+		assert(module.makeSelector('el') == '.module__el');
+	});
+	it('makeSelector(el, mod) = .module__el--mod', function() {
+		var module = makeModule('module');
+		assert(module.makeSelector('el', 'mod') == '.module__el--mod');
+	});
+});
+
+describe('find method', function() {
+	var $module = makeDomTree({
+		name: 'module',
+		children: {
+			name: 'module__el',
+			children: {
+				name: 'module__el--mod'
+			}
+		}
 	});
 	
-	describe('Methods', function() {
-		describe('Make name', function() {
-			var ELName = 'plugin';
-			it('Make name if elName & modName are strings', function() {
-				assert(inst.makeName('elName', 'modName') == (ELName + '__elName--modName'));
-			});
-			it('Make name if only elName is defined', function() {
-				assert(inst.makeName('elName', '') == (ELName + '__elName'));
-			});
-			it('Make name if only modName is defined', function() {
-				assert(inst.makeName('', 'modName') == (ELName + '--modName'));
-			});
-			it('Make name if both elName & modName are arrays with length 1', function() {
-				assert(inst.makeName(['elName'], ['modName']) == (ELName + '__elName--modName'));
-			});
-			it('Make name if both elName & modName are arrays with length more than 1', function() {
-				assert(inst.makeName(['elName', 'elName1'], ['modName', 'modName1']) == (ELName + '__elName__elName1--modName--modName1'));
-			});
+	it('find(el)', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(module.find('el').get(0) === $('.module__el').get(0));
+		$module.remove();
+	});
+	it('find(el, mod)', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(module.find('el', 'mod').get(0) === $('.module__el--mod').get(0));
+		$module.remove();
+	});
+
+	it('length of find(nonexist) == 0', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(!module.find('nonexist').length);
+		$module.remove();
+	});
+});
+
+describe('findIn method', function() {
+	var $module = makeDomTree({
+		name: 'module',
+		children: {
+			name: 'jqel',
+			children: {
+				name: 'module__el--mod'
+			}
+		}
+	});
+	it('find real el', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(module.findIn('.jqel', 'el', 'mod').length);
+		$module.remove();
+	});
+
+	it('find unreal el', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(!module.findIn('.blabla', 'el', 'mod').length);
+		$module.remove();
+	});
+});
+
+describe('events', function() {
+	var $module = makeDomTree({
+		name: 'module',
+		children: {
+			name: 'jqel',
+			children: {
+				name: 'module__el--mod'
+			}
+		}
+	});
+	it('make event name', function() {
+		var module = makeModule('module');
+		assert(module.makeEventName('event') == 'event.module');
+	});
+	it('on', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		var flag = false;
+		module.on('event', function() {
+			flag = true;
 		});
-
-		describe('Selector name', function() {
-			// It uses the functionality of 'makeName' method, so do not check it again
-			it('Class selector from elName & modName is ".name__elName--modName"', function() {
-				assert(inst.makeSelector('elName', 'modName') == '.plugin__elName--modName');
-			});
-			it('Id selector from elName & modName is "#name__elName--modName"', function() {
-				assert(inst.makeSelector('elName', 'modName', false) == '.plugin__elName--modName');
-			});
+		module.$el.trigger(module.makeEventName('event'));
+		assert(flag);
+		$module.remove();
+	});
+	it('off', function() {
+		var module = makeModule('module', $module);
+		var flag = false;
+		module.on('event', function() {
+			flag = !flag;
 		});
+		module.$el.trigger(module.makeEventName('event'));
+		module.off('event');
+		module.$el.trigger(module.makeEventName('event'));
+		assert(flag);
+		$module.remove();
+	});
+});
+describe('mod', function() {
+	var $module = makeDomTree({
+		name: 'module module--mod',
+		children: {
+			name: 'jqel',
+			children: {
+				name: 'module__el--mod'
+			}
+		}
+	});
+	it('mod name', function() {
+		var module = makeModule('module', $module);
+		assert(module.modName('mod') == 'module--mod');
+	});
+	it('has mod', function() {
+		var module = makeModule('module', $module);
+		assert(module.hasMod('mod'));
+	});
+	it('has not mod', function() {
+		var module = makeModule('module', $module);
+		assert(!module.hasMod('modsmth'));
+	});
 
-		describe('Find el', function() {
-			it('".plugin__item" exists', function() {
-				assert(inst.find('item')[0] === $('.plugin__item')[0]);
-			});
-			it('".plugin__item1" does not exists', function() {
-				assert(inst.find('item1').length == 0);
-				
-			});
-		});
+	it('add mod', function() {
+		var module = makeModule('module', $module);
+		module.addMod('newmod');
+		assert(module.hasMod('newmod'));
+	});
 
-		describe('Find in', function() {
-			it('Find sub el in separate jQuey el', function() {
-				assert(inst.findIn($('.jquery'), 'item').length > 0);
-			});
-		});
+	it('remove mod', function() {
+		var module = makeModule('module', $module);
+		module.removeMod('mod');
+		assert(!module.hasMod('mod'));
+	});
 
-		describe('mod', function() {
-			it('El has no mod "MOD"', function() {
-				assert(!inst.hasMod('MOD'));
-			});
-			it('El has mod "modName"', function() {
-				assert(inst.hasMod('modName'));
-			});
+	it('toggle mod (has mod)', function() {
+		var module = makeModule('module', $module);
+		var hasMod = module.hasMod('mod');
+		module.toggleMod('mod');
+		assert(hasMod != module.hasMod('mod'));
+	});
 
-			it('remove existing mod name "modNameRemove"', function() {
-				inst.removeMod('modNameRemove');
-				assert(!inst.hasMod('modNameRemove'));
-			});
-
-			it('remove non existing mod name "mmmm"', function() {
-				inst.removeMod('mmmm');
-				assert(!inst.hasMod('mmmm'));
-			});
-
-			it('remove mod name return jQuery object', function() {
-				assert(inst.removeMod('ff') instanceof $);
-			});
-
-			it('add non existing mod name "ModName1"', function() {
-				inst.addMod('ModName1');
-				assert(inst.hasMod('ModName1'));
-			});
-			it('add existing mod name "ModName1"', function() {
-				inst.addMod('ModName1');
-				assert(inst.hasMod('ModName1'));
-			});
-			describe('toggle mod', function() {
-				it('add non-existing mod "toggleMod"', function() {
-					inst.toggleMod('toggleMod');
-					assert(inst.hasMod('toggleMod'));
-				});
-				it('remove existing mod "toggleMod"', function() {
-					inst.toggleMod('toggleMod');
-					assert(!inst.hasMod('toggleMod'));
-				});
-			});
-		});
-
-		describe('event', function() {
-			var clicked;
-			it('event name from click is click.plugin', function() {
-				assert(inst.eventMakeName('click') == 'click.plugin');
-			});
-			it('add event click', function() {
-				clicked = false;
-				inst.on('click', function() {
-					clicked = true;
-				});
-				inst.triggerEvent('click');
-				assert(clicked);
-			});
-			it('add event click with sub el', function() {
-				clicked = false;
-				inst.on('clickSub', inst.makeSelector('el'), function() {
-					clicked = true;
-				});
-				inst.find('el').trigger('clickSub');
-				assert(clicked);
-			});
-			it('remove event', function() {
-				inst.off('clickSub');
-				clicked = false;
-				inst.find('el').trigger('clickSub');
-				assert(!clicked);
-			});
-		});
+	it('toggle mod (has not mod)', function() {
+		var module = makeModule('module', $module);
+		var hasMod = module.hasMod('newmod');
+		module.toggleMod('newmod');
+		assert(hasMod != module.hasMod('newmod'));
 	});
 });
