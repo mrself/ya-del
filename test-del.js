@@ -6,7 +6,8 @@ function makeModule(name, $el) {
 	var Module = function(){
 		this.dName = name;
 		if (!$el) {
-			this.$el = $('.' + this.dName).appendTo('body');
+			this.$el = makeEl(name);
+			// this.$el = $('.' + this.dName).appendTo('body');
 		}
 		else
 			this.$el = $el;
@@ -72,15 +73,13 @@ describe('find method', function() {
 	});
 	
 	it('find(el)', function() {
-		$('body').append($module);
-		var module = makeModule('module');
-		assert(module.find('el').get(0) === $('.module__el').get(0));
+		var module = makeModule('module', $module);
+		assert(module.find('el').get(0) === $module.find('.module__el').get(0));
 		$module.remove();
 	});
 	it('find(el, mod)', function() {
-		$('body').append($module);
-		var module = makeModule('module');
-		assert(module.find('el', 'mod').get(0) === $('.module__el--mod').get(0));
+		var module = makeModule('module', $module);
+		assert(module.find('el', 'mod').get(0) === $module.find('.module__el--mod').get(0));
 		$module.remove();
 	});
 
@@ -129,7 +128,7 @@ describe('events', function() {
 	});
 	it('make event name', function() {
 		var module = makeModule('module');
-		assert(module.makeEventName('event') == 'event.module');
+		assert(module.eventName('event') == 'event.module');
 	});
 	it('on', function() {
 		$('body').append($module);
@@ -138,7 +137,7 @@ describe('events', function() {
 		module.on('event', function() {
 			flag = true;
 		});
-		module.$el.trigger(module.makeEventName('event'));
+		module.$el.trigger(module.eventName('event'));
 		assert(flag);
 		$module.remove();
 	});
@@ -148,11 +147,27 @@ describe('events', function() {
 		module.on('event', function() {
 			flag = !flag;
 		});
-		module.$el.trigger(module.makeEventName('event'));
+		module.$el.trigger(module.eventName('event'));
 		module.off('event');
-		module.$el.trigger(module.makeEventName('event'));
+		module.$el.trigger(module.eventName('event'));
 		assert(flag);
 		$module.remove();
+	});
+});
+describe('_smartArgs', function() {
+	it('with $', function() {
+		var module = makeModule('module'), $el_ = $('<div />');
+		module._smartArgs(function($el, args, context) {
+			assert($el instanceof $ && $el_[0] == $el[0]);
+			assert(context == module);
+		}, [$el_, 'string']);
+	});
+	it('without $', function() {
+		var module = makeModule('module');
+		module._smartArgs(function($el, args, context) {
+			assert($el instanceof $ && module.$el[0] == $el[0]);
+			assert(args[0] == 'string1');
+		}, ['string1', 'string']);
 	});
 });
 describe('mod', function() {
@@ -183,6 +198,13 @@ describe('mod', function() {
 		module.addMod('newmod');
 		assert(module.hasMod('newmod'));
 	});
+	it('add mod with $ el', function() {
+		var module = makeModule('module', $module);
+		module.$el.append($('<div />', {'class': 'someEl'}));
+		var $el = module.$el.find('.someEl');
+		module.addMod($el, 'newmod');
+		assert($el.hasClass('module--newmod'));
+	});
 
 	it('remove mod', function() {
 		var module = makeModule('module', $module);
@@ -202,5 +224,15 @@ describe('mod', function() {
 		var hasMod = module.hasMod('newmod');
 		module.toggleMod('newmod');
 		assert(hasMod != module.hasMod('newmod'));
+	});
+	it('toggle mod with true state', function() {
+		var module = makeModule('module', $module);
+		module.toggleMod('mymod', 1);
+		assert(module.hasMod('mymod'));
+	});
+	it('toggle mod with false state', function() {
+		var module = makeModule('module', $module);
+		module.toggleMod('mymod', 0);
+		assert(!module.hasMod('mymod'));
 	});
 });
