@@ -235,4 +235,10 @@ describe('mod', function() {
 		module.toggleMod('mymod', 0);
 		assert(!module.hasMod('mymod'));
 	});
+	it('toggle mod with custom $el', function() {
+		var module = makeModule('module', $module);
+		var $cEl = $module.find('.jqel');
+		module.toggleMod($cEl, 'mymod', 1);
+		assert($cEl.hasClass('module--mymod'));
+	});
 });

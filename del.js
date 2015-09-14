@@ -73,7 +73,9 @@ TODO:
 		},
 
 		hasMod: function(name) {
-			return this[this.DelOptions.$elName].hasClass(this.modName(name));
+			return this._smartArgs(function($el, args, context) {
+				return $el.hasClass(context.modName(args[0]));
+			}, arguments);
 		},
 		_smartArgs: function(callback, args) {
 			if (args[0] instanceof $)
@@ -89,19 +91,19 @@ TODO:
 		},
 		filterByMod: function(name) {
 			this._smartArgs(function($el, args, context) {
-				$el.filter('.' + context.modName(name));
+				$el.filter('.' + context.modName(args[0]));
 			}, arguments);
 		},
 
 		removeMod: function(name) {
 			this._smartArgs(function($el, args, context) {
-				$el.removeClass(context.modName(name));
+				$el.removeClass(context.modName(args[0]));
 			}, arguments);
 		},
 
 		toggleMod: function(name, state) {
 			this._smartArgs(function($el, args, context) {
-				$el.toggleClass(context.modName(name), state);
+				$el.toggleClass(context.modName(args[0]), args[1]);
 			}, arguments);
 		},
 
