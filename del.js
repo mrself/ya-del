@@ -90,8 +90,8 @@ TODO:
 			}, arguments);
 		},
 		filterByMod: function(name) {
-			this._smartArgs(function($el, args, context) {
-				$el.filter('.' + context.modName(args[0]));
+			return this._smartArgs(function($el, args, context) {
+				return $el.filter('.' + context.modName(args[0]));
 			}, arguments);
 		},
 
@@ -103,7 +103,8 @@ TODO:
 
 		toggleMod: function(name, state) {
 			this._smartArgs(function($el, args, context) {
-				$el.toggleClass(context.modName(args[0]), args[1]);
+				args[0] = context.modName(args[0]);
+				$.fn.toggleClass.apply($el, args);
 			}, arguments);
 		},
 
