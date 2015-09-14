@@ -3,15 +3,6 @@
  */
 
 /*
-For commit:
-	add namespace option (for event name)
-	make 'on' method similar to jquery one
-	rename makeEventName to eventName
-	add 'setName' method
-	add 'trigger' method for event
-	add 'filterByMod' method
-	add state arg to toggleMod
-	add 'toSelector' arg to modName
 TODO:
  */
 (function($) {
@@ -61,7 +52,9 @@ TODO:
 		},
 
 		find: function() {
-			return this[this.DelOptions.$elName].find(this.makeSelector.apply(this, arguments));
+			return this._smartArgs(function($el, args, context) {
+				return $el.find(context.makeSelector.apply(context, args));
+			}, arguments);
 		},
 
 		findIn: function($elSelector) {
@@ -84,9 +77,9 @@ TODO:
 		},
 		_smartArgs: function(callback, args) {
 			if (args[0] instanceof $)
-				callback(args[0], [].slice.call(args, 1), this);
+				return callback(args[0], [].slice.call(args, 1), this);
 			else
-				callback(this[this.DelOptions.$elName], args, this);
+				return callback(this[this.DelOptions.$elName], args, this);
 		},
 
 		addMod: function(name) {
@@ -95,15 +88,21 @@ TODO:
 			}, arguments);
 		},
 		filterByMod: function(name) {
-			this[this.DelOptions.$elName].filter('.' + this.modName(name));
+			this._smartArgs(function($el, args, context) {
+				$el.filter('.' + context.modName(name));
+			}, arguments);
 		},
 
 		removeMod: function(name) {
-			this[this.DelOptions.$elName].removeClass(this.modName(name));
+			this._smartArgs(function($el, args, context) {
+				$el.removeClass(context.modName(name));
+			}, arguments);
 		},
 
 		toggleMod: function(name, state) {
-			this[this.DelOptions.$elName].toggleClass(this.modName(name), state);
+			this._smartArgs(function($el, args, context) {
+				$el.toggleClass(context.modName(name), state);
+			}, arguments);
 		},
 
 		eventName: function(name) {
@@ -118,14 +117,20 @@ TODO:
 		on: function(name) {
 			var args = arguments;
 			args[0] = this.eventName(name);
-			$.fn.on.apply(this[this.DelOptions.$elName], args);
+			this._smartArgs(function($el, args, context) {
+				$.fn.on.apply($el, args);
+			}, args);
 		},
 
 		off: function(name) {
-			this[this.DelOptions.$elName].off(this.eventName(name));
+			this._smartArgs(function($el, args, context) {
+				$el.off(context.eventName(name));
+			}, arguments);
 		},
 		trigger: function(name) {
-			this[this.DelOptions.$elName].trigger(this.eventName(name));
+			this._smartArgs(function($el, args, context) {
+				$el.trigger(context.eventName(name));
+			}, arguments);
 		}
 	};
 	$.Del = Prototype;
