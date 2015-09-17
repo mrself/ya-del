@@ -1,4 +1,3 @@
-var l = h.g.l;
 var zen = function(input) {
   return jQuery(zen_coding.expandAbbreviation(input, 'html', 'xhtml'));
 };
