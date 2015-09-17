@@ -15,4 +15,15 @@
   },
   "author": "mrself",
   "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.9.3",
+    "browserify": "^11.1.0",
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.5",
+    "jquery": "^2.1.4",
+    "pretty-hrtime": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  }
 }
