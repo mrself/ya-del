@@ -1,0 +1,1 @@
+$.Del = require('./del.js');
