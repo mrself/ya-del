@@ -1,28 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 $.Del = require('./del.js');
 },{"./del.js":2}],2:[function(require,module,exports){
-/**
- * Module class must have properties: selector, dName, $el
- */
-
-/*
-TODO:
- */
-
-
 (function($) {
-	/*function Constructor() {
-		this.$el = $('.el');
-		this.dName = 'el';
-		this.selector = '.el';
-		this._name = 'el';
-	}
-	function Constructor2() {
-		this.$el = $('.module__el');
-		this.dName = 'module__el';
-		this.selector = '.module__el';
-		this._name = 'el';
-	}*/
 
 	var defaults = {
 		$elName: '$el',
@@ -30,6 +9,7 @@ TODO:
 		modSep: '--',
 		namespace: null
 	};
+
 	var Prototype = {
 		initDel: function(options) {
 			this.DelOptions = $.extend(true, {}, defaults, options);
@@ -127,6 +107,7 @@ TODO:
 			args[0] = this.eventName(name);
 			this._smartArgs(function($el, args, context) {
 				$.fn.on.apply($el, args);
+
 			}, args);
 		},
 
@@ -139,6 +120,12 @@ TODO:
 			this._smartArgs(function($el, args, context) {
 				$el.trigger(context.eventName(name));
 			}, arguments);
+		},
+
+		createEl: function(name, tagName) {
+			return $('<' + (tagName || 'div') + ' />', {
+				'class': this.makeName(name)
+			});
 		}
 	};
 	module.exports = Prototype;
