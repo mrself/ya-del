@@ -1,25 +1,4 @@
-/**
- * Module class must have properties: selector, dName, $el
- */
-
-/*
-TODO:
- */
-
-
 (function($) {
-	/*function Constructor() {
-		this.$el = $('.el');
-		this.dName = 'el';
-		this.selector = '.el';
-		this._name = 'el';
-	}
-	function Constructor2() {
-		this.$el = $('.module__el');
-		this.dName = 'module__el';
-		this.selector = '.module__el';
-		this._name = 'el';
-	}*/
 
 	var defaults = {
 		$elName: '$el',
@@ -27,6 +6,7 @@ TODO:
 		modSep: '--',
 		namespace: null
 	};
+
 	var Prototype = {
 		initDel: function(options) {
 			this.DelOptions = $.extend(true, {}, defaults, options);
@@ -124,6 +104,7 @@ TODO:
 			args[0] = this.eventName(name);
 			this._smartArgs(function($el, args, context) {
 				$.fn.on.apply($el, args);
+
 			}, args);
 		},
 
@@ -136,6 +117,12 @@ TODO:
 			this._smartArgs(function($el, args, context) {
 				$el.trigger(context.eventName(name));
 			}, arguments);
+		},
+
+		createEl: function(name, tagName) {
+			return $('<' + (tagName || 'div') + ' />', {
+				'class': this.makeName(name)
+			});
 		}
 	};
 	module.exports = Prototype;

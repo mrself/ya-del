@@ -23,6 +23,9 @@ function makeEl(className) {
   });
   return $el;
 }
+function l(x) {
+	console.log(x);
+}
 
 
 function makeDomTree(tree, $el) {
@@ -136,7 +139,7 @@ describe('events', function() {
 		module.on('event', function() {
 			flag = true;
 		});
-		module.$el.trigger(module.eventName('event'));
+		module.trigger('event');
 		assert(flag);
 		$module.remove();
 	});
@@ -144,12 +147,11 @@ describe('events', function() {
 		var module = makeModule('module', $module);
 		var flag = false;
 		module.on('event', function() {
-			flag = !flag;
+			flag = true;
 		});
-		module.$el.trigger(module.eventName('event'));
 		module.off('event');
-		module.$el.trigger(module.eventName('event'));
-		assert(flag);
+		module.trigger('event');
+		assert(!flag);
 		$module.remove();
 	});
 });
@@ -254,5 +256,18 @@ describe('mod', function() {
 		$module = $module.find('.module');
 		var module = makeModule('module', $module);
 		assert(module.filterByMod('mod1')[0] == module.$el.filter('.module--mod1')[0]);
+	});
+});
+
+describe('createEl', function() {
+	it('el has proper class', function() {
+		var module = makeModule('module');
+		var $el = module.createEl('el');
+		assert($el.hasClass('module__el'));
+	});
+	it('el has proper tag', function() {
+		var module = makeModule('module');
+		var $el = module.createEl('el', 'div');
+		assert($el[0].tagName.toLowerCase() == 'div');
 	});
 });
