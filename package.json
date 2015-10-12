@@ -7,8 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha ./index.test.js -w",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "test": "mocha ./index.test.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -20,14 +21,16 @@
     "browser-sync": "^2.9.3",
     "browserify": "^11.1.0",
     "chai": "^3.3.0",
+    "commitizen": "^1.0.5",
+    "cz-conventional-changelog": "^1.1.4",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
     "jquery": "^2.1.4",
     "mocha": "^2.3.3",
     "pretty-hrtime": "^1.0.0",
+    "semantic-release": "^4.3.5",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.4.0",
-    "semantic-release": "^4.3.5"
+    "watchify": "^3.4.0"
   }
 }
