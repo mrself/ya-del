@@ -24,6 +24,7 @@
     "chai": "^3.3.0",
     "commitizen": "^1.0.5",
     "cz-conventional-changelog": "^1.1.4",
+    "ghooks": "^0.3.2",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
@@ -33,5 +34,10 @@
     "semantic-release": "^4.3.5",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
   }
 }
