@@ -6,6 +6,6 @@ var chai = require('chai'),
 
 describe('#makeName', function() {
 	it('it should work', function() {
-		assert(true);
+		assert(false);
 	});
 });
