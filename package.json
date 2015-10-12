@@ -1,28 +1,35 @@
 {
   "name": "ya-del",
-  "version": "1.0.0",
+  "version": "0.0.0-semantically-released",
   "description": "",
   "main": "del.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./index.test.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:mrself/ya-del.git"
+    "url": "https://github.com/mrself/ya-del.git"
   },
   "author": "Yaroslav Vavrysh <yaruk.my@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.9.3",
     "browserify": "^11.1.0",
+    "chai": "^3.3.0",
+    "commitizen": "^1.0.5",
+    "cz-conventional-changelog": "^1.1.4",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
     "jquery": "^2.1.4",
+    "mocha": "^2.3.3",
     "pretty-hrtime": "^1.0.0",
+    "semantic-release": "^4.3.5",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
   }
