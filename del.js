@@ -4,7 +4,7 @@ var defaults = {
 	modSep: '--',
 	namespace: null
 };
-var $ = typeof jQuery == 'undefined' ? require('jquery') : jQuery;
+var $ = typeof $ == 'undefined' ? jQuery : $;
 
 module.exports = {
 	initDel: function(options) {
