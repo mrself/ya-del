@@ -1,3 +1,11 @@
+describe('#initDel', function() {
+	it ('have all properties', function() {
+		var module = makeModule();
+		assert(module.dName == 'module');
+		assert(module.namespace == 'module');
+	});
+});
+
 describe('#makeName', function() {
 	var module;
 	beforeEach(function() {
