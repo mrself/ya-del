@@ -1,144 +1,160 @@
-describe('#makeName', function() {
-	var module;
-	beforeEach(function() {
-		module = makeModule();
+var zen = function(input) {
+  return jQuery(zen_coding.expandAbbreviation(input, 'html', 'xhtml'));
+};
+function makeModule(name, $el) {
+	var Module = function(){
+		this.dName = name;
+		if (!$el) {
+			this.$el = makeEl(name);
+			// this.$el = $('.' + this.dName).appendTo('body');
+		}
+		else
+			this.$el = $el;
+		this.initDel();
+	};
+	Module.prototype = $.Del;
+	var module = new Module();
+	return module;
+}
+
+function makeEl(className) {
+  var $el = $('<div />', {
+    class: className
+  });
+  return $el;
+}
+function l(x) {
+	console.log(x);
+}
+
+
+function makeDomTree(tree, $el) {
+	if (!$el) {
+		$el = makeEl(tree.name);
+	} else {
+		$el.html(makeEl(tree.name));
+	}
+
+	if (tree.children)
+		$el.html(makeDomTree(tree.children));
+	return $el;
+}
+
+
+describe('makeName method', function() {
+	it('makeName(el) = module__el', function() {
+		var module = makeModule('module');
+		assert(module.makeName('el') == 'module__el');
 	});
-	it ('return bem el', function() {
-		var name = module.makeName('el');
-		assert(name == 'module__el');
-	});
-	it('return bem el with mod', function() {
-		var name = module.makeName('el', 'mod');
-		assert(name == 'module__el--mod');
+	it('makeName(el, mod) = module__el--mod', function() {
+		var module = makeModule('module');
+		assert(module.makeName('el', 'mod') == 'module__el--mod');
 	});
 });
 
-describe('#makeSelector', function() {
-	var module;
-	beforeEach(function() {
-		module = makeModule();
+describe('makeSelector method', function() {
+	it('makeSelector(el) = .module__el', function() {
+		var module = makeModule('module');
+		assert(module.makeSelector('el') == '.module__el');
 	});
-	it ('return bem el as selector', function() {
-		var selector = module.makeSelector('el');
-		assert(selector == '.module__el');
-	});
-	it('return bem el as selector with mod', function() {
-		var selector = module.makeSelector('el', 'mod');
-		assert(selector == '.module__el--mod');
+	it('makeSelector(el, mod) = .module__el--mod', function() {
+		var module = makeModule('module');
+		assert(module.makeSelector('el', 'mod') == '.module__el--mod');
 	});
 });
 
-describe('#setName', function() {
-	var module;
-	beforeEach(function() {
-		module = makeModule();
+describe('find method', function() {
+	var $module = makeDomTree({
+		name: 'module',
+		children: {
+			name: 'module__el',
+			children: {
+				name: 'module__el--mod'
+			}
+		}
 	});
-	it ('set name on module el', function() {
-		module.$el.removeClass('module');
-		module.setName();
-		assert(module.$el.hasClass('module'));
+	
+	it('find(el)', function() {
+		var module = makeModule('module', $module);
+		assert(module.find('el').get(0) === $module.find('.module__el').get(0));
+		$module.remove();
+	});
+	it('find(el, mod)', function() {
+		var module = makeModule('module', $module);
+		assert(module.find('el', 'mod').get(0) === $module.find('.module__el--mod').get(0));
+		$module.remove();
+	});
+
+	it('length of find(nonexist) == 0', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(!module.find('nonexist').length);
+		$module.remove();
 	});
 });
 
-describe('#find', function() {
-	var module;
-	beforeEach(function() {
-		module = makeModule();
+describe('findIn method', function() {
+	var $module = makeDomTree({
+		name: 'module',
+		children: {
+			name: 'jqel',
+			children: {
+				name: 'module__el--mod'
+			}
+		}
 	});
-	it ('#find el', function() {
-		var $el = $('<div class="module__el"></div>');
-		module.$el.append($el);
-		assert(module.find('el')[0] == $el[0]);
+	it('find real el', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(module.findIn('.jqel', 'el', 'mod').length);
+		$module.remove();
 	});
-	it('#find el with mode', function() {
-		var $el = $('<div class="module__el--mod"></div>');
-		module.$el.append($el);
-		assert(module.find('el', 'mod')[0] == $el[0]);
-	});
-	it('#find not existing el should return empty collection', function() {
-		assert(module.find('nonexist').length == 0);
-	});
-});
 
-describe('#findIn', function() {
-	var module;
-	beforeEach(function() {
-		module = makeModule();
-	});
-	it ('find existing el', function() {
-		$('body').append($('<div class="jq"><div class="module__el"></div></div>'));
-		var $jq = module.findIn('.jq', 'el');
-		assert($jq.length);
-		$jq.remove();
-	});
-	it('find non existing el should have no result', function() {
-		assert(!module.findIn('.nonexist', 'el').length);
+	it('find unreal el', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		assert(!module.findIn('.blabla', 'el', 'mod').length);
+		$module.remove();
 	});
 });
 
 describe('events', function() {
-	var module;
-	beforeEach(function() {
-		module = makeModule();
+	var $module = makeDomTree({
+		name: 'module',
+		children: {
+			name: 'jqel',
+			children: {
+				name: 'module__el--mod'
+			}
+		}
 	});
-
-	it('#eventName', function() {
+	it('make event name', function() {
+		var module = makeModule('module');
 		assert(module.eventName('event') == 'event.module');
 	});
-
-	it ('#on', function() {
+	it('on', function() {
+		$('body').append($module);
+		var module = makeModule('module');
+		var flag = false;
 		module.on('event', function() {
-			assert(true);
+			flag = true;
 		});
 		module.trigger('event');
-
+		assert(flag);
+		$module.remove();
 	});
-
-	it('#off', function() {
-		var triggered = false;
+	it('off', function() {
+		var module = makeModule('module', $module);
+		var flag = false;
 		module.on('event', function() {
-			if (!triggered) {
-				assert(true);
-				triggered = true;
-			} else {
-				assert(false);
-			}
+			flag = true;
 		});
-		module.trigger('event');
 		module.off('event');
 		module.trigger('event');
+		assert(!flag);
+		$module.remove();
 	});
 });
-
-describe('#_smartArgs', function() {
-	var module;
-	beforeEach(function() {
-		module = makeModule();
-	});
-	it ('first arguments is jQuery instance', function() {
-		var $_el = $('<div />');
-		module._smartArgs(function($el, args, context) {
-			assert($el instanceof $);
-			assert($_el[0] == $el[0]);
-			assert(args[0] == 'string');
-			assert(context == module);
-		}, [$_el, 'string']);
-	});
-
-	it('first argument is not jQuery instance', function() {
-		module._smartArgs(function($el, args, context) {
-			assert(module.$el[0] == $el[0]);
-			assert(args[0] == 'str1');
-			assert(args[1] == 'str2');
-		}, ['str1', 'str2']);
-	});
-});
-
-var zen = function(input) {
-  return jQuery(zen_coding.expandAbbreviation(input, 'html', 'xhtml'));
-};
-
-
 describe('_smartArgs', function() {
 	it('with $', function() {
 		var module = makeModule('module'), $el_ = $('<div />');
@@ -255,37 +271,3 @@ describe('createEl', function() {
 		assert($el[0].tagName.toLowerCase() == 'div');
 	});
 });
-function makeModule(name, $el) {
-	name = name || 'module';
-	var Module = function(){
-		this.dName = name;
-		this.$el = $el ? $el : $('<div class="'+ name +'"></div>');
-		this.initDel();
-	};
-	Module.prototype = $.Del;
-	var module = new Module();
-	return module;
-}
-
-function makeEl(className) {
-  var $el = $('<div />', {
-    class: className
-  });
-  return $el;
-}
-function l(x) {
-	console.log(x);
-}
-
-
-function makeDomTree(tree, $el) {
-	if (!$el) {
-		$el = makeEl(tree.name);
-	} else {
-		$el.html(makeEl(tree.name));
-	}
-
-	if (tree.children)
-		$el.html(makeDomTree(tree.children));
-	return $el;
-}

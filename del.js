@@ -16,7 +16,10 @@ module.exports = {
 
 	makeName: function(elName, modName) {
 		var name = this.dName;
-		if (elName) name += this.DelOptions.elSep + elName;
+		if (elName) {
+			if (!Array.isArray(elName)) elName = [elName];
+			name += this.DelOptions.elSep + elName.join(this.DelOptions.elSep);
+		}
 		if (modName) name += this.DelOptions.modSep + modName;
 		return name;
 	},
@@ -58,6 +61,13 @@ module.exports = {
 			return $el.hasClass(context.modName(args[0]));
 		}, arguments);
 	},
+
+	/**
+	 * Filter function that defines first argument for methods.
+	 * @param  {Function} callback callback
+	 * @param  {arguments}   args  Arguments of first method
+	 * @return {n/a}
+	 */
 	_smartArgs: function(callback, args) {
 		if (args[0] instanceof $)
 			return callback(args[0], [].slice.call(args, 1), this);
