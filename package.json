@@ -4,8 +4,6 @@
   "description": "",
   "main": "del.js",
   "scripts": {
-    "test": "mocha ./index.test.js",
-    "test:watch": "mocha ./index.test.js -w",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "git-cz"
   },
