@@ -5,17 +5,5 @@
 
 It is helpful when you develop not large project (plugin or module).
 
-##Usage
 ###Installing
-npm: 
-```
-npm i -S ya-del
-```
-###In code
-```
-var del = require('del');
-$.extend(SomeModule.prototype, del);
-var someModuel = new SomeModule();
-someModule.initDel();
-// now you can use Del api
-```
+npm: ` npm i -S ya-del `
