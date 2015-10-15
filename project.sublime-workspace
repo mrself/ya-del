@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"ife",
+				"ife	if-else"
+			],
+			[
 				"fu",
 				"function 	Language Construct"
 			],
@@ -510,36 +514,61 @@
 			[
 				"spl",
 				"split"
-			],
-			[
-				"params",
-				"paramsStr"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "test/test.js",
+			"settings":
+			{
+				"buffer_size": 7246,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/oserver/OpenServer/domains/divshotinna/public/index.html",
+			"settings":
+			{
+				"buffer_size": 2473,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/oserver/OpenServer/domains/divshotinna/public/index2.html",
+			"settings":
+			{
+				"buffer_size": 7932,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/myprojects/wp/innasdesign/dash.txt",
+			"settings":
+			{
+				"buffer_size": 270,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/myprojects/wp/innasdesign/template/theme/framework/shortcodes/tpl/custom_home.php",
+			"settings":
+			{
+				"buffer_size": 1678,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "del.js",
 			"settings":
 			{
-				"buffer_size": 3261,
+				"buffer_size": 3416,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "var chai = require('./chai'),\n	expect = chai.expect,\n	assert = chail.assert,\n	$ = require('jquery'),\n	del = require('del');\n\ndescribe('#makeName', function() {\n	it('it should work', function() {\n		assert(true);\n	});\n});",
-			"file": "/d/myprojects/dev/js/el-core/index.test.js",
-			"file_size": 229,
-			"file_write_time": 130891222999145457,
-			"settings":
-			{
-				"buffer_size": 219,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "test/test-del.js",
+			"file": "/d/myprojects/dev/js/el-core/test/test-old.js",
 			"settings":
 			{
 				"buffer_size": 6920,
@@ -547,43 +576,51 @@
 			}
 		},
 		{
-			"file": "/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/my-email.sublime-snippet",
+			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 288,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
-			"settings":
-			{
-				"buffer_size": 674,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/macros/semicolon-end-line.sublime-macro",
-			"settings":
-			{
-				"buffer_size": 226,
+				"buffer_size": 942,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
-		"height": 58.0,
+		"height": 334.0,
 		"selected_items":
 		[
 			[
-				"copp",
-				"File: Copy Path"
+				"sett de",
+				"Preferences: Settings - Default"
+			],
+			[
+				"sett",
+				"Preferences: Settings - User"
+			],
+			[
+				"ky",
+				"Preferences: Key Bindings - Default"
 			],
 			[
 				"ke",
 				"Preferences: Key Bindings - User"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"keyuser",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"new f",
+				"ANF: New File"
+			],
+			[
+				"copp",
+				"File: Copy Path"
 			],
 			[
 				"in",
@@ -604,14 +641,6 @@
 			[
 				"ssh",
 				"Set Syntax: HTML"
-			],
-			[
-				"key",
-				"Preferences: Key Bindings - Default"
-			],
-			[
-				"sett",
-				"Preferences: Settings - User"
 			],
 			[
 				"dele",
@@ -702,13 +731,15 @@
 				"Package Control: Remove Package"
 			]
 		],
-		"width": 528.0
+		"width": 504.0
 	},
 	"console":
 	{
 		"height": 162.0,
 		"history":
 		[
+			"class NextGroup(sublime_plugin.WindowCommand):",
+			"import sublime_plugin",
 			"clear",
 			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
 		]
@@ -724,15 +755,75 @@
 	},
 	"expanded_folders":
 	[
+		"/D/myprojects/dev/js/el-core",
+		"/D/myprojects/dev/js/el-core/gulp-utils"
 	],
 	"file_history":
 	[
-		"/C/Users/Lightman/.gitconfig",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/D/myprojects/wp/innasdesign/template/theme/index.php",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/tests/chai/assert.sublime-snippet",
+		"/E/моє/документи/new  1.txt",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/tests/chai/it.sublime-snippet",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/tests/chai/full-describe.sublime-snippet",
+		"/E/моє/MAC.txt",
+		"/D/myprojects/dev/js/el-core/test/index.html",
+		"/D/myprojects/dev/js/el-core/index.test.js",
+		"/D/myprojects/dev/js/el-core/gulpfile.js",
+		"/D/myprojects/dev/js/el-core/app.js",
+		"/D/myprojects/dev/js/el-core/node_modules/chai/lib/chai/utils/addProperty.js",
+		"/D/myprojects/dev/js/el-core/.gitignore",
+		"/D/myprojects/dev/js/el-core/test/test-del.js",
+		"/D/myprojects/dev/js/el-core/test/app.js",
+		"/D/myprojects/dev/js/el-core/node_modules/vinyl-source-stream/test.js",
+		"/D/myprojects/dev/js/el-core/node_modules/browserify/test/tr_error.js",
+		"/C/Users/Lightman/server.js",
+		"/D/myprojects/dev/js/el-core/node_modules/gulp-util/lib/isNull.js",
+		"/D/myprojects/dev/js/el-core/node_modules/browserify/test/double_bundle_error.js",
+		"/D/myprojects/dev/js/el-core/del.js",
 		"/D/myprojects/dev/js/el-core/package.json",
+		"/d/myprojects/dev/js/el-core/index.test.js",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/prev_group.py",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/commands/next_group.py",
+		"/D/myprojects/dev/js/el-core/.cz.json",
+		"/D/myprojects/dev/js/el-core/node_modules/commitizen/src/app.js",
 		"/E/моє/документи/sapp/web-dev.json",
+		"/D/myprojects/dev/js/el-core/.travis.yml",
+		"/D/myprojects/dev/js/el-core/node_modules/browserify/test/tr_args.js",
+		"/D/myprojects/dev/js/el-core/node_modules/browserify/node_modules/module-deps/test/tr_rel.js",
+		"/D/myprojects/dev/js/el-core/node_modules/cz-conventional-changelog/index.js",
+		"/D/myprojects/dev/js/el-core/node_modules/cz-conventional-changelog/package.json",
+		"/D/myprojects/dev/js/el-core/node_modules/commitizen/package.json",
+		"/D/myprojects/dev/js/el-core/node_modules/commitizen/node_modules/cz-conventional-changelog/node_modules/word-wrap/index.js",
+		"/D/myprojects/dev/js/el-core/node_modules/cz-conventional-changelog/node_modules/word-wrap/README.md",
+		"/D/myprojects/dev/js/el-core/node_modules/cz-conventional-changelog/node_modules/word-wrap/LICENSE",
+		"/D/myprojects/dev/js/el-core/node_modules/cz-conventional-changelog/node_modules/word-wrap/index.js",
+		"/D/myprojects/dev/js/el-core/node_modules/commitizen/node_modules/cz-conventional-changelog/node_modules/word-wrap/package.json",
+		"/D/myprojects/dev/js/el-core/node_modules/cz-conventional-changelog/node_modules/word-wrap/package.json",
+		"/D/myprojects/dev/js/el-core/node_modules/browser-sync/node_modules/lodash/string/words.js",
+		"/D/myprojects/dev/js/el-core/node_modules/browser-sync/node_modules/foxy/node_modules/http-proxy/lib/http-proxy/passes/web-outgoing.js",
+		"/D/myprojects/dev/js/el-core/node_modules/.bin/watchify",
+		"/D/myprojects/dev/js/el-core/node_modules/browser-sync/node_modules/browser-sync-ui/node_modules/weinre/web/client/web-inspector-API.js",
+		"/D/myprojects/dev/js/el-core/node_modules/browser-sync/node_modules/browser-sync-ui/node_modules/weinre/web/client/AuditRules.js",
+		"/D/myprojects/dev/js/el-core/node_modules/watchify/node_modules/chokidar/node_modules/readdirp/test/bed/root_dir1/root_dir1_file1.ext1",
+		"/D/myprojects/dev/js/jquery/helpers/package.json",
+		"/C/Users/Lightman/AppData/Roaming/npm/node_modules/semantic-release-cli/dist/lib/travis.js",
+		"/C/Users/Lightman/AppData/Roaming/npm/node_modules/semantic-release-cli/dist/index.js",
+		"/C/Users/Lightman/AppData/Roaming/npm/node_modules/semantic-release-cli/package.json",
+		"/D/myprojects/dev/js/el-core/node_modules/jquery/src/traversing/var/rneedsContext.js",
+		"/D/myprojects/dev/js/el-core/node_modules/jquery/src/traversing.js",
+		"/D/myprojects/bc/dev/shop/package.json",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/macros/semicolon-end-line.sublime-macro",
+		"/C/Users/Lightman/.npmrc",
+		"/C/Users/Lightman/AppData/Roaming/npm/etc/npmrc",
+		"/C/Users/Lightman/.gitconfig",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/if-else.sublime-snippet",
+		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/my-email.sublime-snippet",
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/macros/comma-end-line.sublime-macro",
 		"/d/myprojects/dev/js/el-core/gulpfile.js",
-		"/D/myprojects/dev/js/el-core/app.js",
 		"/D/oserver/OpenServer/domains/wpinna/wp-load.php",
 		"/D/oserver/OpenServer/domains/wpinna/wp-comments-post.php",
 		"/D/oserver/OpenServer/domains/wpinna/wp-config.php",
@@ -753,8 +844,6 @@
 		"/D/myprojects/bc/masq-gulp/src/scss/_settings.scss",
 		"/D/myprojects/bc/masq-gulp/node_modules/browserify/test/standalone_events.js",
 		"/D/myprojects/bc/masq-gulp/src/js/staff.js",
-		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/Default/Default (Windows).sublime-keymap",
-		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
 		"/D/myprojects/dev/js/jquery/helpers/tests/index.html",
 		"/D/myprojects/dev/js/jquery/helpers/src.js",
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/functions/new-function.sublime-snippet",
@@ -764,7 +853,6 @@
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/functions/anonimous-function.sublime-snippet",
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/new-var.sublime-snippet",
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/amd/prtf.sublime-snippet",
-		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/amd/prt.sublime-snippet",
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/amd/require-local.sublime-snippet",
 		"/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/js/amd/require.sublime-snippet",
@@ -793,72 +881,17 @@
 		"/D/myprojects/bc/masq-gulp/template/search_tips.html",
 		"/D/myprojects/bc/masq-gulp/template/scripts/foundation.min-old.js",
 		"/D/myprojects/bc/masq-gulp/full-pages/forplay.html",
-		"/D/myprojects/bc/dev/shop/package.json",
 		"/D/myprojects/bc/masq-gulp/node_modules/bower/node_modules/inquirer/node_modules/rx/src/core/observer-lite.js",
 		"/D/myprojects/bc/masq-gulp/template/order.html",
 		"/D/myprojects/bc/masq-gulp/full-pages/starline.html",
 		"/D/myprojects/bc/masq-gulp/full-pages/smiffy's.html",
 		"/D/myprojects/bc/masq-gulp/node_modules/bower/node_modules/fstream/lib/dir-writer.js",
 		"/D/myprojects/bc/masq-gulp/full-pages/delicious.html",
-		"/D/myprojects/bc/masq-gulp/src/js/bc-modules/template.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/bower/node_modules/mout/lang/deepEquals.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/node_modules/lodash/internal/mapDelete.js",
-		"/D/myprojects/bc/masq-gulp/robots.txt",
-		"/D/myprojects/bc/masq-gulp/node_modules/browserify/test/require_expose.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/browserify/test/reverse_multi_bundle.js",
-		"/D/myprojects/bc/masq-gulp/src/js/modules/mm.js",
-		"/D/myprojects/bc/masq-gulp/template/scripts/mm.js",
-		"/D/myprojects/bc/masq-gulp/template/Panels/MegaMenu.html",
-		"/D/myprojects/bc/masq-gulp/masq-gulp.sublime-project",
-		"/D/myprojects/bc/masq-gulp/src/js/bc-modules/cart.js",
-		"/D/myprojects/bc/masq-gulp/template/js/cart.js",
-		"/D/myprojects/bc/masq-gulp/template/cart.html",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/node_modules/lodash/internal/composeArgsRight.js",
-		"/D/myprojects/bc/masq-gulp/template/checkout_address.html",
-		"/D/myprojects/bc/masq-gulp/.gitignore",
-		"/D/myprojects/bc/masq-gulp/src/js/modules/couples.js",
-		"/D/myprojects/bc/masq-gulp/src/js/modules/sfilter.js",
-		"/D/myprojects/bc/masq-gulp/gulp/tasks/static-filters.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/lib/connect-utils.js",
-		"/D/myprojects/bc/masq-gulp/template/Panels/SideSubPageList.html",
-		"/D/myprojects/bc/masq-gulp/template/Snippets/SubBrands.html",
-		"/D/myprojects/bc/masq-gulp/template/sizeCharts/seasons_usa.html",
-		"/D/myprojects/bc/masq-gulp/node_modules/gulp-file-include/lib/replace-operator.js",
-		"/D/myprojects/bc/masq-gulp/README.md",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/lib/async-tasks.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/browserify/test/tr_symlink.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/browserify/test/ignore/skip.js",
-		"/D/myprojects/bc/masq-gulp/template/Snippets/QuickSearchJS.html",
-		"/D/myprojects/bc/masq-gulp/.bowerrc",
-		"/D/myprojects/bc/masq-gulp/template/Panels/CategoryContent.html",
-		"/D/myprojects/bc/masq-gulp/template/category.html",
-		"/D/myprojects/bc/masq-gulp/template/Snippets/CategoryPaging.html",
-		"/D/myprojects/bc/masq-gulp/template/Panels/CategoryPagingTop.html",
-		"/D/myprojects/bc/masq-gulp/template/Panels/SideCategoryTopSellers.html",
-		"/D/myprojects/bc/masq-gulp/template/Snippets/CategoryPagingItemCurrent.html",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/lib/server/certs/server.key",
-		"/D/myprojects/bc/masq-gulp/bower_components/modernizr/feature-detects/userdata.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/bower/node_modules/mkdirp/test/umask_sync.js",
-		"/D/myprojects/bc/masq-gulp/full-pages/underwraps.html",
-		"/D/myprojects/bc/masq-gulp/bower_components/modernizr/feature-detects/pointerlock-api.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/ya-del/app.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/node_modules/ua-parser-js/ua-parser-js.jquery.json",
-		"/D/myprojects/bc/masq-gulp/build/app.css",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/node_modules/lodash/internal/arrayPush.js",
-		"/D/myprojects/bc/masq-gulp/template/checkout_payment.html",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/node_modules/lodash/internal/cachePush.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/node_modules/browser-sync-ui/static/sync-options.html",
-		"/D/myprojects/bc/masq-gulp/node_modules/gulp-uglify/test/sourcemap.js",
-		"/d/myprojects/bc/masq-gulp/.sublime-project",
-		"/D/myprojects/bc/masq-gulp/node_modules/browser-sync/node_modules/lodash/function/modArgs.js",
-		"/D/myprojects/bc/masq-gulp/node_modules/node-bourbon/Makefile",
-		"/D/myprojects/bc/masq-gulp/.sublime-project.sublime-workspace",
-		"/D/myprojects/shopify/magic/commands.sh",
-		"/D/myprojects/bc/masq-gulp/bower_components/modernizr/feature-detects/css-filters.js"
+		"/D/myprojects/bc/masq-gulp/src/js/bc-modules/template.js"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 21.0
 	},
 	"find_in_files":
 	{
@@ -872,6 +905,18 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"modu",
+			"des",
+			"des		",
+			"des",
+			"shift",
+			"ammount",
+			"name",
+			"ctrl+shift+",
+			"npm",
+			"main",
+			"setUpTravis",
+			"git",
 			"createEl",
 			"makeEl",
 			"\\",
@@ -987,19 +1032,7 @@
 			"mobileBtns",
 			"left",
 			"dib",
-			"down",
-			"sm",
-			"down",
-			"xs",
-			"md",
-			"mbtn",
-			"lg",
-			"_table_cell",
-			"mbtn",
-			"_table_cell",
-			"div",
-			"url",
-			"HarabaraHand"
+			"down"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1017,73 +1050,255 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "del.js",
+					"file": "test/test.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3261,
+						"buffer_size": 7246,
 						"regions":
 						{
+							"bookmark_?":
+							{
+								"flags": 144,
+								"regions":
+								[
+									[
+										989,
+										989
+									]
+								]
+							},
+							"bookmark_m":
+							{
+								"flags": 144,
+								"regions":
+								[
+									[
+										989,
+										989
+									]
+								]
+							}
 						},
 						"selection":
 						[
 							[
-								3122,
-								3122
+								2940,
+								2940
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"function_name_status_row": 122,
+							"function_name_status_row": 124,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1178.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/d/myprojects/dev/js/el-core/index.test.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 219,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								203,
-								203
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"function_name_status_row": -1,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1085.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
+					"buffer": 1,
+					"file": "/D/oserver/OpenServer/domains/divshotinna/public/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2473,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 0,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 188.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
 					"buffer": 2,
-					"file": "test/test-del.js",
+					"file": "/D/oserver/OpenServer/domains/divshotinna/public/index2.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7932,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6476,
+								6554
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 169,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 234.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/D/myprojects/wp/innasdesign/dash.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 270,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								270,
+								270
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 22,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/myprojects/wp/innasdesign/template/theme/framework/shortcodes/tpl/custom_home.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1678,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1131,
+								1131
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 10,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "del.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3416,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								853,
+								853
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 34,
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 54.0,
+						"translation.y": 10114.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "del.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3416,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1817,
+								1817
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 67,
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 663.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/d/myprojects/dev/js/el-core/test/test-old.js",
 					"semi_transient": false,
 					"settings":
 					{
@@ -1094,120 +1309,53 @@
 						"selection":
 						[
 							[
-								6567,
-								6575
-							],
-							[
-								6687,
-								6695
-							],
-							[
-								6840,
-								6848
+								4433,
+								4433
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
-							"function_name_status_row": 261,
+							"function_name_status_row": 191,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 413.0,
+						"translation.y": 1878.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/snippets/my-email.sublime-snippet",
+					"buffer": 7,
+					"file": "package.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 288,
+						"buffer_size": 942,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								152,
-								152
+								938,
+								938
 							]
 						],
 						"settings":
 						{
-							"default_extension": "sublime-snippet",
-							"function_name_status_row": 5,
-							"syntax": "Packages/XML/XML.tmLanguage"
+							"auto_complete": true,
+							"function_name_status_row": 33,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 674,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								654,
-								654
-							]
-						],
-						"settings":
-						{
-							"auto_complete": true,
-							"function_name_status_row": 11,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/C/Users/Lightman/AppData/Roaming/Sublime Text 3/Packages/User/macros/semicolon-end-line.sublime-macro",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 226,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2,
-								2
-							]
-						],
-						"settings":
-						{
-							"function_name_status_row": 1,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1230,11 +1378,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.469985358712,
 			1.0
 		],
 		"rows":
@@ -1255,7 +1410,7 @@
 	"project": "project.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 38.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1263,6 +1418,46 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"app",
+				"app.js"
+			],
+			[
+				".git",
+				".gitignore"
+			],
+			[
+				"pa",
+				"package.json"
+			],
+			[
+				"gu",
+				"gulpfile.js"
+			],
+			[
+				"index.",
+				"index.test.js"
+			],
+			[
+				"del",
+				"del.js"
+			],
+			[
+				"",
+				"d:\\myprojects\\dev\\js\\el-core\\index.test.js"
+			],
+			[
+				".gi",
+				".gitignore"
+			],
+			[
+				"travis",
+				".travis.yml"
+			],
+			[
+				"word-wrap",
+				"node_modules\\commitizen\\node_modules\\cz-conventional-changelog\\node_modules\\word-wrap\\index.js"
+			],
 			[
 				"settings.sc",
 				"src\\scss\\_settings.scss"
@@ -1278,10 +1473,6 @@
 			[
 				"bowe",
 				"bower.json"
-			],
-			[
-				"pa",
-				"package.json"
 			],
 			[
 				"gulp",
@@ -1326,10 +1517,6 @@
 			[
 				"cart.js",
 				"src\\js\\modules\\cart.js"
-			],
-			[
-				".git",
-				".gitignore"
 			],
 			[
 				"sfil",
@@ -1528,7 +1715,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 218.0,
 	"status_bar_visible": true,
 	"template_settings":

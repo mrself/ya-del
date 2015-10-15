@@ -3,12 +3,7 @@
   "version": "0.0.0-semantically-released",
   "description": "",
   "main": "del.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "mocha ./index.test.js",
-    "test:watch": "mocha ./index.test.js -w",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "git-cz"
   },
@@ -34,10 +29,5 @@
     "semantic-release": "^4.3.5",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
-  },
-  "config": {
-    "ghooks": {
-      "pre-commit": "npm run test"
-    }
   }
 }
