@@ -134,125 +134,79 @@ describe('#_smartArgs', function() {
 	});
 });
 
-var zen = function(input) {
-  return jQuery(zen_coding.expandAbbreviation(input, 'html', 'xhtml'));
-};
-
-
-describe('_smartArgs', function() {
-	it('with $', function() {
-		var module = makeModule('module'), $el_ = $('<div />');
-		module._smartArgs(function($el, args, context) {
-			assert($el instanceof $ && $el_[0] == $el[0]);
-			assert(context == module);
-		}, [$el_, 'string']);
+describe('modifier', function() {
+	var module;
+	beforeEach(function() {
+		module = makeModule();
 	});
-	it('without $', function() {
-		var module = makeModule('module');
-		module._smartArgs(function($el, args, context) {
-			assert($el instanceof $ && module.$el[0] == $el[0]);
-			assert(args[0] == 'string1');
-		}, ['string1', 'string']);
-	});
-});
-describe('mod', function() {
-	var $module = makeDomTree({
-		name: 'module module--mod',
-		children: {
-			name: 'jqel',
-			children: {
-				name: 'module__el module__el--mod'
-			}
-		}
-	});
-	function getModule() {
-		return $module.clone();
-	}
-	it('mod name', function() {
-		var module = makeModule('module', getModule());
+	it ('#modName', function() {
 		assert(module.modName('mod') == 'module--mod');
 	});
-	it('has mod', function() {
-		var module = makeModule('module', getModule());
+
+	it('#hasMod', function() {
+		assert(!module.hasMod('mod'));
+		module.$el.addClass('module--mod');
 		assert(module.hasMod('mod'));
 	});
-	it('has not mod', function() {
-		var module = makeModule('module', getModule());
-		assert(!module.hasMod('modsmth'));
+
+	it('#addMod', function() {
+		module.addMod('mod');
+		assert(module.hasMod('mod'));
 	});
 
-	it('add mod', function() {
-		var module = makeModule('module', getModule());
-		module.addMod('newmod');
-		assert(module.hasMod('newmod'));
-	});
-	it('add mod with $ el', function() {
-		var module = makeModule('module', getModule());
-		module.$el.append($('<div />', {'class': 'someEl'}));
-		var $el = module.$el.find('.someEl');
-		module.addMod($el, 'newmod');
-		assert($el.hasClass('module--newmod'));
-	});
-
-	it('remove mod', function() {
-		var module = makeModule('module', getModule());
+	it('#removeMod', function() {
+		module.addMod('mod');
 		module.removeMod('mod');
 		assert(!module.hasMod('mod'));
 	});
 
-	it('toggle mod (has mod)', function() {
-		var module = makeModule('module', getModule());
-		var hasMod = module.hasMod('mod');
-		module.toggleMod('mod');
-		assert(hasMod != module.hasMod('mod'));
+	describe('#toggleMod', function() {
+		it('(add)', function() {
+			module.toggleMod('mod');
+			assert(module.hasMod('mod'));
+		});
+
+		it('(remove)', function() {
+			module.addMod('mod');
+			module.toggleMod('mod');
+			assert(!module.hasMod('mod'));
+		});
+
+		it('with true state', function() {
+			module.toggleMod('mod', true);
+			assert(module.hasMod('mod'));
+		});
+		it ('with false state', function() {
+			module.addMod('mod');
+			module.toggleMod('mod', false);
+			assert(!module.hasMod('mod'));
+		});
+		it('with custom el', function() {
+			var $_el = $('<div />');
+			module.toggleMod($_el, 'mod');
+			assert($_el.hasClass('module--mod'));
+		});
 	});
 
-	it('toggle mod (has not mod)', function() {
-		var module = makeModule('module', getModule());
-		var hasMod = module.hasMod('newmod');
-		module.toggleMod('newmod');
-		assert(hasMod != module.hasMod('newmod'));
-	});
-	it('toggle mod with true state', function() {
-		var module = makeModule('module', getModule());
-		module.toggleMod('mymod', 1);
-		assert(module.hasMod('mymod'));
-	});
-	it('toggle mod with false state', function() {
-		var module = makeModule('module', getModule());
-		module.toggleMod('mymod', false);
-		assert(!module.hasMod('mymod'));
-	});
-	it('toggle mod with custom $el', function() {
-		var module = makeModule('module', getModule());
-		var $cEl = $module.find('.jqel');
-		module.toggleMod($cEl, 'mymod', 1);
-		assert($cEl.hasClass('module--mymod'));
-	});
 	it('#filterByMod', function() {
-		var $module = $('<div />');
-		$module.append($('<div />', {
-			'class': 'module module--mod2'
-		}));
-		$module.append($('<div />', {
-			'class': 'module module--mod1'
-		}));
-		$module = $module.find('.module');
-		var module = makeModule('module', $module);
-		assert(module.filterByMod('mod1')[0] == module.$el.filter('.module--mod1')[0]);
+		var $el = $('<div class="module--mod"></div>');
+		module.$el.append($el);
+		assert(module.filterByMod($el, 'mod')[0] == $el[0]);
 	});
 });
 
-describe('createEl', function() {
-	it('el has proper class', function() {
-		var module = makeModule('module');
-		var $el = module.createEl('el');
-		assert($el.hasClass('module__el'));
+describe('#createEl', function() {
+	var module;
+	beforeEach(function() {
+		module = makeModule();
 	});
-	it('el has proper tag', function() {
-		var module = makeModule('module');
-		var $el = module.createEl('el', 'div');
-		assert($el[0].tagName.toLowerCase() == 'div');
+
+	it ('created el has proper class', function() {
+		assert(module.createEl('el').hasClass('module__el'));
+	});
+
+	it('create el has proper tag name', function() {
+		assert(module.createEl('el')[0].tagName.toLowerCase() == 'div');
 	});
 });
 function makeModule(name, $el) {
@@ -275,17 +229,4 @@ function makeEl(className) {
 }
 function l(x) {
 	console.log(x);
-}
-
-
-function makeDomTree(tree, $el) {
-	if (!$el) {
-		$el = makeEl(tree.name);
-	} else {
-		$el.html(makeEl(tree.name));
-	}
-
-	if (tree.children)
-		$el.html(makeDomTree(tree.children));
-	return $el;
 }
