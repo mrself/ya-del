@@ -4,6 +4,7 @@
   "description": "",
   "main": "del.js",
   "scripts": {
+    "test": "echo \"No tests specified\" && exit 0",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "git-cz"
   },
