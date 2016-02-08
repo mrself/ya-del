@@ -5,6 +5,7 @@ describe('#initDel', function() {
 		assert(module.namespace == 'module');
 	});
 });
+// it is comment
 
 describe('#makeName', function() {
 	beforeEach(function() {
