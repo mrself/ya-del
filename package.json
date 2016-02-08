@@ -1,6 +1,6 @@
 {
   "name": "ya-del",
-  "version": "0.0.0-semantically-released",
+  "version": "0.0.0",
   "description": "",
   "main": "del.js",
   "scripts": {
