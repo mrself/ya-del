@@ -46,8 +46,14 @@ module.exports = {
 		}, arguments);
 	},
 
-	findIn: function($elSelector) {
-		return $($elSelector).find(this.makeSelector.apply(this, [].slice.call(arguments, 1)));
+	/**
+	 * Find element in other el
+	 * @param {jQuery|string|DOMElement} el el to find in
+	 * @param {string|array} element name
+	 * @return {jQuery}
+	 */
+	findIn: function(el) {
+		return (el instanceof $ ? el : $(el)).find(this.makeSelector.apply(this, [].slice.call(arguments, 1)));
 	},
 
 	/**
