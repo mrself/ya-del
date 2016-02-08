@@ -102,6 +102,15 @@ describe('events', function() {
 
 	});
 
+	it('#on - should create event with with bubbling', function() {
+		var $child = $('<div />', {"class": module.makeName('child')});
+		module.$el.append($child);
+		module.on('click', 'child', function() {
+			assert(true);
+		});
+		$child.trigger('click.module');
+	});
+
 	it('#off', function() {
 		var triggered = false;
 		module.on('event', function() {
@@ -115,6 +124,18 @@ describe('events', function() {
 		module.trigger('event');
 		module.off('event');
 		module.trigger('event');
+	});
+
+	it('#off - should remove event with with bubbling', function() {
+		var $child = $('<div />', {"class": module.makeName('child')});
+		module.$el.append($child);
+		var flag = true;
+		module.on('click', 'child', function() {
+			flag = false;
+		});
+		module.off('click', 'child');
+		$child.trigger('click.module');
+		assert(flag);
 	});
 });
 
