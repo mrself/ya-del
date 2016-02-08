@@ -7,6 +7,7 @@ var defaults = {
 	modSep: '--',
 	namespace: null
 };
+
 var $ = typeof $ == 'undefined' ? jQuery : $;
 
 module.exports = {
