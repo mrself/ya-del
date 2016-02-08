@@ -9,6 +9,11 @@ var defaults = {
 };
 
 var $ = typeof $ == 'undefined' ? jQuery : $;
+if (typeof $ == 'undefined') {
+	if (typeof jQuery == 'undefined') {
+		throw new Error('ya-del: jQuery is not defined');
+	} else $ = jQuery;
+}
 
 module.exports = {
 	initDel: function(options) {
