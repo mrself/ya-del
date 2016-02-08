@@ -108,11 +108,6 @@ module.exports = {
 		return name + '.' + this.namespace;
 	},
 
-	/*deprecated*/
-	makeEventName: function(name) {
-		return name + '.' + this.dName;
-	},
-
 	/**
 	 * jquery like 'on'. Attach event to this.$el or with delegation.
 	 * 
