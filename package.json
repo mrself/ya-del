@@ -15,19 +15,19 @@
   "author": "Yaroslav Vavrysh <yaruk.my@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "browser-sync": "^2.9.3",
-    "browserify": "^11.1.0",
-    "chai": "^3.3.0",
-    "commitizen": "^1.0.5",
-    "cz-conventional-changelog": "^1.1.4",
-    "ghooks": "^0.3.2",
+    "browser-sync": "^2.11.1",
+    "browserify": "^13.0.0",
+    "chai": "^3.5.0",
+    "commitizen": "^2.5.0",
+    "cz-conventional-changelog": "^1.1.5",
+    "ghooks": "^1.0.3",
     "gulp": "^3.9.0",
-    "gulp-util": "^3.0.6",
+    "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.5",
-    "mocha": "^2.3.3",
-    "pretty-hrtime": "^1.0.0",
+    "mocha": "^2.4.5",
+    "pretty-hrtime": "^1.0.1",
     "semantic-release": "^4.3.5",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.4.0"
+    "watchify": "^3.7.0"
   }
 }

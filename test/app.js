@@ -7,11 +7,16 @@ var defaults = {
 	modSep: '--',
 	namespace: null
 };
-var $ = typeof $ == 'undefined' ? jQuery : $;
+
+if (typeof $ == 'undefined') {
+	if (typeof jQuery == 'undefined') {
+		throw new Error('ya-del: jQuery is not defined');
+	} else $ = jQuery;
+}
 
 module.exports = {
 	initDel: function(options) {
-		this.DelOptions = $.extend(true, {}, defaults, options);
+		this.DelOptions = $.extend({}, defaults, options);
 		this.dName = this.dName || this._name;
 		this.selector = this.selector || '.' + this.dName;
 		this.namespace = this.DelOptions.namespace || this.dName;
@@ -106,20 +111,27 @@ module.exports = {
 		return name + '.' + this.namespace;
 	},
 
-	/*deprecated*/
-	makeEventName: function(name) {
-		return name + '.' + this.dName;
-	},
-
+	/**
+	 * jquery like 'on'. Attach event to this.$el or with delegation.
+	 * 
+	 * @example
+	 * obj.on('click', 'elName', handler)
+	 * obj.on('click', handler)
+	 * 
+	 * @param  {[type]} name [description]
+	 * @return {[type]}      [description]
+	 */
 	on: function(name) {
 		var args = arguments;
 		args[0] = this.eventName(name);
 		this._smartArgs(function($el, args, context) {
 			$.fn.on.apply($el, args);
-
 		}, args);
 	},
 
+	/**
+	 * Opposite to #on
+	 */
 	off: function(name) {
 		this._smartArgs(function($el, args, context) {
 			$el.off(context.eventName(name));
