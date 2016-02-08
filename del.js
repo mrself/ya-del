@@ -13,7 +13,7 @@ if (typeof $ == 'undefined') {
 
 module.exports = {
 	initDel: function(options) {
-		this.DelOptions = $.extend(true, {}, defaults, options);
+		this.DelOptions = $.extend({}, defaults, options);
 		this.dName = this.dName || this._name;
 		this.selector = this.selector || '.' + this.dName;
 		this.namespace = this.DelOptions.namespace || this.dName;
