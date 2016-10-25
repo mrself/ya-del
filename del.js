@@ -11,6 +11,13 @@ if (typeof $ == 'undefined') {
 	} else $ = jQuery;
 }
 
+/**
+ * @typedef {String} dName
+ *
+ * Element document name.
+ * This name is used as an identifier for element.
+ */
+
 module.exports = {
 	initDel: function(options) {
 		this.DelOptions = $.extend({}, defaults, options);
