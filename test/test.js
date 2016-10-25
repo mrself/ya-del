@@ -150,31 +150,6 @@ describe('events', function() {
 	});
 });
 
-describe('#_smartArgs', function() {
-	beforeEach(function() {
-		this.module = makeModule();
-	});
-	it ('first arguments is jQuery instance', function() {
-		var $_el = $('<div />');
-		var module = this.module;
-		this.module._smartArgs(function($el, args, context) {
-			assert($el instanceof $);
-			assert($_el[0] == $el[0]);
-			assert(args[0] == 'string');
-			assert(context == module);
-		}, [$_el, 'string']);
-	});
-
-	it('first argument is not jQuery instance', function() {
-		var module = this.module;
-		this.module._smartArgs(function($el, args, context) {
-			assert(module.$el[0] == $el[0]);
-			assert(args[0] == 'str1');
-			assert(args[1] == 'str2');
-		}, ['str1', 'str2']);
-	});
-});
-
 describe('modifier', function() {
 	var module;
 	beforeEach(function() {
@@ -204,7 +179,6 @@ describe('modifier', function() {
 	describe('#toggleMod', function() {
 		it('(add)', function() {
 			this.module.toggleMod('mod');
-			l(this.module.$el)
 			assert(this.module.hasMod('mod'));
 		});
 
@@ -223,17 +197,11 @@ describe('modifier', function() {
 			this.module.toggleMod('mod', false);
 			assert(!this.module.hasMod('mod'));
 		});
-		it('with custom el', function() {
-			var $_el = $('<div />');
-			this.module.toggleMod($_el, 'mod');
-			assert($_el.hasClass('module--mod'));
-		});
 	});
 
 	it('#filterByMod', function() {
-		var $el = $('<div class="module--mod"></div>');
-		this.module.$el.append($el);
-		assert(this.module.filterByMod($el, 'mod')[0] == $el[0]);
+		this.module.$el.addClass('module--mod');
+		assert(this.module.filterByMod('mod')[0] == this.module.$el[0]);
 	});
 });
 
