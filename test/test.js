@@ -5,10 +5,20 @@ beforeEach(function() {
 });
 
 describe('#initDel', function() {
-	it ('have all properties', function() {
-		var module = makeModule();
-		assert(module.dName == 'module');
-		assert(module.namespace == 'module');
+	it('call #initEl', function() {
+		var module = makeSimpleModule();
+		var spiedInitEl = spy.on(module, 'initEl');
+		var $el = makeEl('module').appendTo($fixture);
+		module.initDel({
+			dName: 'module'
+		});
+		spiedInitEl.should.have.been.called();
+	});
+
+	it('set DelOptions', function() {
+		var module = makeSimpleModule();
+		module.initDel({key: null});
+		expect(module.DelOptions).to.have.property('key')
 	});
 });
 
@@ -194,6 +204,7 @@ describe('modifier', function() {
 	describe('#toggleMod', function() {
 		it('(add)', function() {
 			this.module.toggleMod('mod');
+			l(this.module.$el)
 			assert(this.module.hasMod('mod'));
 		});
 
@@ -241,52 +252,39 @@ describe('#createEl', function() {
 	});
 });
 
-describe('#setElOptions', function() {
-	it('set prop "_elOptions"', function() {
-		var module = makeModule();
-		var options = {dName: 'dName'};
-		module.setElOptions(options);
-		expect(module._elOptions).to.be.eql({dName: 'dName'});
-	});
-
-	it('wrap options.$el with jQuery if options.$el exists and is not jQuery instance', function() {
-		var module = makeModule();
-		var options = {$el: document.createElement('div')};
-		module.setElOptions(options);
-		expect(module._elOptions.$el).to.be.an.instanceOf($);
-	});
-});
-
 describe('#initEl', function() {
-	it('set dName prop form _elOptions', function() {
-		var module = makeModule();
-		module._elOptions = {dName: 'dName'};
-		module.initEl();
-		expect(module.dName).to.be.eql('dName');
+	it('exit if $el exists', function() {
+		var module = makeSimpleModule();
+		var $el = makeEl();
+		module.$el = $el;
+		module.initDel();
+		module.$el[0].should.be.eql($el[0]);
 	});
 
-	it('set $el prop from _elOptions', function() {
-		var module = makeModule();
+
+	it('set $el prop from DelOptions', function() {
+		var module = makeSimpleModule();
 		var $el = $('<div />');
-		module._elOptions = {$el: $el};
+		module.DelOptions = {$el: $el};
 		module.initEl();
 		expect(module.$el[0]).to.be.eql($el[0]);
 	});
 
 	it('make $el by dName if $el is not provided', function() {
-		var module = makeModule();
+		var module = makeSimpleModule();
 		var $el = $('<div />', {'class': 'dName'});
 		$fixture.append($el);
-		module._elOptions = {dName: 'dName'};
+		module.DelOptions = {};
+		module.dName = 'dName';
 		module.initEl();
 		expect(module.$el[0]).to.be.eql($el[0]);
 	});
 
 	it('transform $el to jQuery if it is not', function() {
-		var module = makeModule();
+		var module = makeSimpleModule();
 		var $el = $('<div />');
 		$fixture.append($el);
-		module._elOptions = {$el: $el[0]};
+		module.DelOptions = {$el: $el[0]};
 		module.initEl();
 		expect(module.$el[0]).to.be.eql($el[0]);
 	});
@@ -295,13 +293,18 @@ describe('#initEl', function() {
 function makeModule(name, $el) {
 	name = name || 'module';
 	var Module = function(){
-		this.dName = name;
-		this.$el = $el ? $el : $('<div class="'+ name +'"></div>');
-		this.initDel();
+		this.$el = makeEl(name);
+		this.initDel({dName: name});
 	};
 	Module.prototype = $.Del;
 	var module = new Module();
 	return module;
+}
+
+function makeSimpleModule () {
+	function Module () {}
+	Module.prototype = Object.create($.Del);
+	return new Module;
 }
 
 function makeEl(className) {

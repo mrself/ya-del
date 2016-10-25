@@ -19,34 +19,30 @@ if (typeof $ == 'undefined') {
  */
 
 module.exports = {
+	/**
+	 * Init del module
+	 * @param  {Object} options
+	 * @param  {String} [options.dName]
+	 * @param  {String} [options.namespace] Namespace
+	 * @param  {jQuery|DOMElement} [options.$el]
+	 */
 	initDel: function(options) {
-		this.DelOptions = $.extend({}, defaults, options);
-		this.dName = this.dName || this._name;
+		this.DelOptions = $.extend({}, defaults, this.DelOptions, options);
+		this.dName = this.DelOptions.dName || this._name;
 		this.selector = this.selector || '.' + this.dName;
 		this.namespace = this.DelOptions.namespace || this.dName;
+		this.initEl();
 	},
 
 	/**
-	 * Set options for element
-	 * @param {Object} options
-	 * @param {String} options.dName
-	 * @param {jQuery|DOMElement} options.$el
-	 */
-	setElOptions: function(options) {
-		this._elOptions = options;
-		if (options.$el && !(options.$el instanceof $))
-			options.$el = $(options.$el);
-	},
-
-	/**
-	 * Init props connected with el
+	 * Define $el
 	 */
 	initEl: function() {
-		this.dName = this._elOptions.dName;
-		if (this._elOptions.$el) {
-			if (this._elOptions.$el instanceof $)
-				this.$el = this._elOptions.$el;
-			else this.$el = $(this._elOptions.$el);
+		if (this.$el) return;
+		if (this.DelOptions.$el) {
+			if (this.DelOptions.$el instanceof $)
+				this.$el = this.DelOptions.$el;
+			else this.$el = $(this.DelOptions.$el);
 		} else this.$el = $('.' + this.dName);
 	},
 
