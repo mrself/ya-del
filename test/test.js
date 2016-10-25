@@ -234,6 +234,23 @@ describe('#createEl', function() {
 		assert(this.module.createEl('el')[0].tagName.toLowerCase() == 'div');
 	});
 });
+
+describe('#setElOptions', function() {
+	it('set prop "_elOptions"', function() {
+		var module = makeModule();
+		var options = {dName: 'dName'};
+		module.setElOptions(options);
+		expect(module._elOptions).to.be.eql({dName: 'dName'});
+	});
+
+	it('wrap options.$el with jQuery if options.$el exists and is not jQuery instance', function() {
+		var module = makeModule();
+		var options = {$el: document.createElement('div')};
+		module.setElOptions(options);
+		expect(module._elOptions.$el).to.be.an.instanceOf($);
+	});
+});
+
 function makeModule(name, $el) {
 	name = name || 'module';
 	var Module = function(){

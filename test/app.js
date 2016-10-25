@@ -22,6 +22,18 @@ module.exports = {
 		this.namespace = this.DelOptions.namespace || this.dName;
 	},
 
+	/**
+	 * Set options for element
+	 * @param {Object} options
+	 * @param {String} options.dName
+	 * @param {jQuery|DOMElement} options.$el
+	 */
+	setElOptions: function(options) {
+		this._elOptions = options;
+		if (options.$el && !(options.$el instanceof $))
+			options.$el = $(options.$el);
+	},
+
 	makeName: function(elName, modName) {
 		var name = this.dName;
 		if (elName) {
@@ -49,8 +61,14 @@ module.exports = {
 		}, arguments);
 	},
 
-	findIn: function($elSelector) {
-		return $($elSelector).find(this.makeSelector.apply(this, [].slice.call(arguments, 1)));
+	/**
+	 * Find element in other el
+	 * @param {jQuery|string|DOMElement} el el to find in
+	 * @param {string|array} element name
+	 * @return {jQuery}
+	 */
+	findIn: function(el) {
+		return (el instanceof $ ? el : $(el)).find(this.makeSelector.apply(this, [].slice.call(arguments, 1)));
 	},
 
 	/**
