@@ -17,6 +17,7 @@
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
     "ghooks": "^1.0.3",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
