@@ -1,3 +1,9 @@
+var $fixture;
+
+beforeEach(function() {
+	$fixture = $('#fixture').empty();
+});
+
 describe('#initDel', function() {
 	it ('have all properties', function() {
 		var module = makeModule();
@@ -248,6 +254,41 @@ describe('#setElOptions', function() {
 		var options = {$el: document.createElement('div')};
 		module.setElOptions(options);
 		expect(module._elOptions.$el).to.be.an.instanceOf($);
+	});
+});
+
+describe('#initEl', function() {
+	it('set dName prop form _elOptions', function() {
+		var module = makeModule();
+		module._elOptions = {dName: 'dName'};
+		module.initEl();
+		expect(module.dName).to.be.eql('dName');
+	});
+
+	it('set $el prop from _elOptions', function() {
+		var module = makeModule();
+		var $el = $('<div />');
+		module._elOptions = {$el: $el};
+		module.initEl();
+		expect(module.$el[0]).to.be.eql($el[0]);
+	});
+
+	it('make $el by dName if $el is not provided', function() {
+		var module = makeModule();
+		var $el = $('<div />', {'class': 'dName'});
+		$fixture.append($el);
+		module._elOptions = {dName: 'dName'};
+		module.initEl();
+		expect(module.$el[0]).to.be.eql($el[0]);
+	});
+
+	it('transform $el to jQuery if it is not', function() {
+		var module = makeModule();
+		var $el = $('<div />');
+		$fixture.append($el);
+		module._elOptions = {$el: $el[0]};
+		module.initEl();
+		expect(module.$el[0]).to.be.eql($el[0]);
 	});
 });
 

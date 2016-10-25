@@ -31,6 +31,18 @@ module.exports = {
 			options.$el = $(options.$el);
 	},
 
+	/**
+	 * Init props connected with el
+	 */
+	initEl: function() {
+		this.dName = this._elOptions.dName;
+		if (this._elOptions.$el) {
+			if (this._elOptions.$el instanceof $)
+				this.$el = this._elOptions.$el;
+			else this.$el = $(this._elOptions.$el);
+		} else this.$el = $('.' + this.dName);
+	},
+
 	makeName: function(elName, modName) {
 		var name = this.dName;
 		if (elName) {
