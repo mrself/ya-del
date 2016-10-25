@@ -36,7 +36,8 @@ gulp.task('browser-sync', function() {
 		server: {
 			baseDir: './test'
 		},
-		files: ['./test/*', 'del.js']
+		files: ['./test/*', 'del.js'],
+		open: false
 	});
 });
 // gulp.task('watch', function() {
