@@ -64,6 +64,11 @@ module.exports = {
 		return '.' + this.makeName.apply(this, arguments);
 	},
 
+	/**
+	 * Find child element by a dName
+	 * @param {String} dName dName
+	 * @return {jQuery} Finded element
+	 */
 	find: function() {
 		return this._smartArgs(function($el, args, context) {
 			return $el.find(context.makeSelector.apply(context, args));
