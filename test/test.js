@@ -1,11 +1,26 @@
+var $fixture;
+
+beforeEach(function() {
+	$fixture = $('#fixture').empty();
+});
+
 describe('#initDel', function() {
-	it ('have all properties', function() {
-		var module = makeModule();
-		assert(module.dName == 'module');
-		assert(module.namespace == 'module');
+	it('call #initEl', function() {
+		var module = makeSimpleModule();
+		var spiedInitEl = spy.on(module, 'initEl');
+		var $el = makeEl('module').appendTo($fixture);
+		module.initDel({
+			dName: 'module'
+		});
+		spiedInitEl.should.have.been.called();
+	});
+
+	it('set DelOptions', function() {
+		var module = makeSimpleModule();
+		module.initDel({key: null});
+		expect(module.DelOptions).to.have.property('key')
 	});
 });
-// it is comment
 
 describe('#makeName', function() {
 	beforeEach(function() {
@@ -135,31 +150,6 @@ describe('events', function() {
 	});
 });
 
-describe('#_smartArgs', function() {
-	beforeEach(function() {
-		this.module = makeModule();
-	});
-	it ('first arguments is jQuery instance', function() {
-		var $_el = $('<div />');
-		var module = this.module;
-		this.module._smartArgs(function($el, args, context) {
-			assert($el instanceof $);
-			assert($_el[0] == $el[0]);
-			assert(args[0] == 'string');
-			assert(context == module);
-		}, [$_el, 'string']);
-	});
-
-	it('first argument is not jQuery instance', function() {
-		var module = this.module;
-		this.module._smartArgs(function($el, args, context) {
-			assert(module.$el[0] == $el[0]);
-			assert(args[0] == 'str1');
-			assert(args[1] == 'str2');
-		}, ['str1', 'str2']);
-	});
-});
-
 describe('modifier', function() {
 	var module;
 	beforeEach(function() {
@@ -207,17 +197,11 @@ describe('modifier', function() {
 			this.module.toggleMod('mod', false);
 			assert(!this.module.hasMod('mod'));
 		});
-		it('with custom el', function() {
-			var $_el = $('<div />');
-			this.module.toggleMod($_el, 'mod');
-			assert($_el.hasClass('module--mod'));
-		});
 	});
 
 	it('#filterByMod', function() {
-		var $el = $('<div class="module--mod"></div>');
-		this.module.$el.append($el);
-		assert(this.module.filterByMod($el, 'mod')[0] == $el[0]);
+		this.module.$el.addClass('module--mod');
+		assert(this.module.filterByMod('mod')[0] == this.module.$el[0]);
 	});
 });
 
@@ -235,16 +219,60 @@ describe('#createEl', function() {
 		assert(this.module.createEl('el')[0].tagName.toLowerCase() == 'div');
 	});
 });
+
+describe('#initEl', function() {
+	it('exit if $el exists', function() {
+		var module = makeSimpleModule();
+		var $el = makeEl();
+		module.$el = $el;
+		module.initDel();
+		module.$el[0].should.be.eql($el[0]);
+	});
+
+
+	it('set $el prop from DelOptions', function() {
+		var module = makeSimpleModule();
+		var $el = $('<div />');
+		module.DelOptions = {$el: $el};
+		module.initEl();
+		expect(module.$el[0]).to.be.eql($el[0]);
+	});
+
+	it('make $el by dName if $el is not provided', function() {
+		var module = makeSimpleModule();
+		var $el = $('<div />', {'class': 'dName'});
+		$fixture.append($el);
+		module.DelOptions = {};
+		module.dName = 'dName';
+		module.initEl();
+		expect(module.$el[0]).to.be.eql($el[0]);
+	});
+
+	it('transform $el to jQuery if it is not', function() {
+		var module = makeSimpleModule();
+		var $el = $('<div />');
+		$fixture.append($el);
+		module.DelOptions = {$el: $el[0]};
+		module.initEl();
+		expect(module.$el[0]).to.be.eql($el[0]);
+	});
+});
+
 function makeModule(name, $el) {
 	name = name || 'module';
 	var Module = function(){
-		this.dName = name;
-		this.$el = $el ? $el : $('<div class="'+ name +'"></div>');
-		this.initDel();
+		this.$el = makeEl(name);
+		this.initDel({dName: name});
 	};
 	Module.prototype = $.Del;
 	var module = new Module();
 	return module;
+}
+
+function makeSimpleModule () {
+	function Module () {}
+	Module.prototype = Object.create($.Del);
+	return new Module;
 }
 
 function makeEl(className) {

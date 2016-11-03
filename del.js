@@ -11,12 +11,39 @@ if (typeof $ == 'undefined') {
 	} else $ = jQuery;
 }
 
+/**
+ * @typedef {String} dName
+ *
+ * Element document name.
+ * This name is used as an identifier for element.
+ */
+
 module.exports = {
+	/**
+	 * Init del module
+	 * @param  {Object} options
+	 * @param  {String} [options.dName]
+	 * @param  {String} [options.namespace] Namespace
+	 * @param  {jQuery|DOMElement} [options.$el]
+	 */
 	initDel: function(options) {
-		this.DelOptions = $.extend({}, defaults, options);
-		this.dName = this.dName || this._name;
+		this.DelOptions = $.extend({}, defaults, this.DelOptions, options);
+		this.dName = this.DelOptions.dName || this._name;
 		this.selector = this.selector || '.' + this.dName;
 		this.namespace = this.DelOptions.namespace || this.dName;
+		this.initEl();
+	},
+
+	/**
+	 * Define $el
+	 */
+	initEl: function() {
+		if (this.$el) return;
+		if (this.DelOptions.$el) {
+			if (this.DelOptions.$el instanceof $)
+				this.$el = this.DelOptions.$el;
+			else this.$el = $(this.DelOptions.$el);
+		} else this.$el = $('.' + this.dName);
 	},
 
 	makeName: function(elName, modName) {
@@ -40,10 +67,13 @@ module.exports = {
 		return '.' + this.makeName.apply(this, arguments);
 	},
 
+	/**
+	 * Find child element by a dName
+	 * @param {String} dName dName
+	 * @return {jQuery} Finded element
+	 */
 	find: function() {
-		return this._smartArgs(function($el, args, context) {
-			return $el.find(context.makeSelector.apply(context, args));
-		}, arguments);
+		return this.$el.find(this.makeSelector.apply(this, arguments));
 	},
 
 	/**
@@ -68,46 +98,25 @@ module.exports = {
 	},
 
 	hasMod: function(name) {
-		return this._smartArgs(function($el, args, context) {
-			return $el.hasClass(context.modName(args[0]));
-		}, arguments);
-	},
-
-	/**
-	 * Filter function that defines first argument for methods.
-	 * @param  {Function} callback callback
-	 * @param  {arguments}   args  Arguments of first method
-	 * @return {n/a}
-	 */
-	_smartArgs: function(callback, args) {
-		if (args[0] instanceof $)
-			return callback(args[0], [].slice.call(args, 1), this);
-		else
-			return callback(this[this.DelOptions.$elName], args, this);
+		return this.$el.hasClass(this.modName(name));
 	},
 
 	addMod: function(name) {
-		this._smartArgs(function($el, args, context) {
-			$el.addClass(context.modName(args[0]));
-		}, arguments);
+		return this.$el.addClass(this.modName(name));
 	},
+
 	filterByMod: function(name) {
-		return this._smartArgs(function($el, args, context) {
-			return $el.filter('.' + context.modName(args[0]));
-		}, arguments);
+		return this.$el.filter('.' + this.modName(name));
 	},
 
 	removeMod: function(name) {
-		this._smartArgs(function($el, args, context) {
-			$el.removeClass(context.modName(args[0]));
-		}, arguments);
+		this.$el.removeClass(this.modName(name));
 	},
 
 	toggleMod: function(name, state) {
-		this._smartArgs(function($el, args, context) {
-			args[0] = context.modName(args[0]);
-			$.fn.toggleClass.apply($el, args);
-		}, arguments);
+		var args = arguments;
+		args[0] = this.modName(args[0]);
+		$.fn.toggleClass.apply(this.$el, args);
 	},
 
 	eventName: function(name) {
@@ -127,23 +136,17 @@ module.exports = {
 	on: function(name) {
 		var args = arguments;
 		args[0] = this.eventName(name);
-		this._smartArgs(function($el, args, context) {
-			$.fn.on.apply($el, args);
-		}, args);
+		$.fn.on.apply(this.$el, args);
 	},
 
 	/**
 	 * Opposite to #on
 	 */
 	off: function(name) {
-		this._smartArgs(function($el, args, context) {
-			$el.off(context.eventName(name));
-		}, arguments);
+		this.$el.off(this.eventName(name));
 	},
 	trigger: function(name) {
-		this._smartArgs(function($el, args, context) {
-			$el.trigger(context.eventName(name));
-		}, arguments);
+		this.$el.trigger(this.eventName(name));
 	},
 
 	createEl: function(name, tagName) {

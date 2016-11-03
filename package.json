@@ -5,8 +5,7 @@
   "main": "del.js",
   "scripts": {
     "test": "echo \"No tests specified\" && exit 0",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "commit": "git-cz"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -18,10 +17,9 @@
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
-    "commitizen": "^2.5.0",
-    "cz-conventional-changelog": "^1.1.5",
+    "chai-spies": "^0.7.1",
     "ghooks": "^1.0.3",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.5",
     "mocha": "^2.4.5",
