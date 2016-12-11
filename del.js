@@ -6,9 +6,7 @@ var defaults = {
 };
 
 if (typeof $ == 'undefined') {
-	if (typeof jQuery == 'undefined') {
-		throw new Error('ya-del: jQuery is not defined');
-	} else $ = jQuery;
+	var $ = jQuery;
 }
 
 /**
