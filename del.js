@@ -5,10 +5,6 @@ var defaults = {
 	namespace: null
 };
 
-if (typeof $ == 'undefined') {
-	var $ = jQuery;
-}
-
 /**
  * @typedef {String} dName
  *
