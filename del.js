@@ -140,7 +140,9 @@ module.exports = {
 		this.$el.off(this.eventName(name));
 	},
 	trigger: function(name) {
-		this.$el.trigger(this.eventName(name));
+		var args = [].slice.call(arguments);
+		args[0] = this.eventName(name)
+		$.fn.trigger.apply(this.$el, args);
 	},
 
 	createEl: function(name, tagName) {
